@@ -159,32 +159,44 @@ h1{
   font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim);
   margin:0 0 20px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
 }
-.pipeline-track{position:relative; display:flex; justify-content:space-between; align-items:center;}
-.pipeline-line{
-  position:absolute; left:14px; right:14px; top:14px; height:2px;
-  background:var(--border); z-index:0;
+.pipeline-track{display:flex; align-items:center; padding-bottom:28px;}
+.p-node{
+  position:relative; flex:0 0 auto; width:28px; height:28px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; z-index:2;
+  background:var(--bg); border:2px solid var(--accent-teal);
+  color:var(--accent-teal);
 }
-.pipeline-line-fill{
-  position:absolute; left:14px; top:14px; height:2px; width:calc(100% - 28px);
-  background:linear-gradient(90deg, var(--accent-teal), var(--accent-amber));
-  z-index:1; transform-origin:left center;
-  animation:fillmove 6s ease-in-out infinite;
+.p-node svg{width:13px; height:13px;}
+.p-node .stage-name{
+  position:absolute; top:38px; left:50%; transform:translateX(-50%);
+  font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim);
+  white-space:nowrap;
 }
-@keyframes fillmove{
-  0%{transform:scaleX(0.02);}
-  70%{transform:scaleX(1);}
-  100%{transform:scaleX(1);}
+.p-node.is-active{
+  border-color:var(--accent-amber); color:var(--accent-amber);
+  background:color-mix(in srgb, var(--accent-amber) 16%, var(--bg));
 }
-.stage{position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:10px; flex:1;}
-.stage-node{
-  width:28px; height:28px; border-radius:50%;
-  background:var(--bg); border:2px solid var(--border);
-  display:flex; align-items:center; justify-content:center;
+.p-node.is-active .stage-name{color:var(--accent-amber);}
+.p-node.is-active::before{
+  content:""; position:absolute; inset:-6px; border-radius:50%;
+  border:1px solid var(--accent-amber); opacity:.5;
+  animation:ring 2s ease-out infinite;
 }
-.stage:last-child .stage-node{border-color:var(--accent-amber); background:color-mix(in srgb, var(--accent-amber) 18%, var(--bg));}
-.stage:last-child .stage-node::after{content:""; width:8px; height:8px; border-radius:50%; background:var(--accent-amber);}
-.stage-name{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim); text-align:center;}
-.stage:last-child .stage-name{color:var(--accent-amber);}
+@keyframes ring{
+  0%{transform:scale(.75); opacity:.6;}
+  100%{transform:scale(1.35); opacity:0;}
+}
+.p-seg{flex:1 1 auto; height:2px; background:var(--accent-teal); position:relative; z-index:1; margin:0 -1px;}
+.p-seg.is-live{background:var(--border); overflow:hidden;}
+.p-seg.is-live .p-pulse{
+  position:absolute; top:-3px; left:-18%; width:20%; height:8px; border-radius:4px;
+  background:radial-gradient(closest-side, var(--accent-amber), transparent 75%);
+  animation:travel 2.2s linear infinite;
+}
+@keyframes travel{
+  0%{left:-20%;}
+  100%{left:100%;}
+}
 
 /* ============ SECTION SCAFFOLD ============ */
 section{padding:64px 0; border-top:1px solid var(--hairline);}
@@ -348,15 +360,7 @@ footer{padding:34px 0 50px; border-top:1px solid var(--hairline);}
         <span id="pipeline-job">tech-mahindra</span>
         <span id="pipeline-duration">build: passing</span>
       </p>
-      <div class="pipeline-track">
-        <div class="pipeline-line"></div>
-        <div class="pipeline-line-fill"></div>
-        <div class="stage"><div class="stage-node"></div><span class="stage-name">code</span></div>
-        <div class="stage"><div class="stage-node"></div><span class="stage-name">build</span></div>
-        <div class="stage"><div class="stage-node"></div><span class="stage-name">test</span></div>
-        <div class="stage"><div class="stage-node"></div><span class="stage-name">deploy</span></div>
-        <div class="stage"><div class="stage-node"></div><span class="stage-name">monitor</span></div>
-      </div>
+      <div class="pipeline-track" id="pipeline-track"></div>
     </div>
   </section>
 
@@ -461,7 +465,7 @@ const PROFILE = {
 
   currentJob: {
     company: "Tech Mahindra",
-    companySlug: "tech-mahindra",
+    companySlug: "tech-mahindra/telecom-middleware",
     title: "Associate Software Engineer",
     startDate: "2023-09-01",
     logHighlights: [
@@ -538,6 +542,22 @@ document.getElementById("hero-name").textContent = PROFILE.name;
 document.getElementById("hero-summary").textContent = PROFILE.summary;
 document.getElementById("pipeline-job").textContent = PROFILE.currentJob.companySlug;
 document.getElementById("pipeline-duration").textContent = "in production for " + tenureFrom(PROFILE.currentJob.startDate);
+
+/* ---------- render: pipeline (code -> build -> test -> deploy -> monitor) ---------- */
+const svgCheck = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>';
+const svgDot = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="currentColor"/></svg>';
+const PIPELINE_STAGES = ["code", "build", "test", "deploy", "monitor"];
+const activeStage = "monitor"; // the currently-running stage; everything before it renders as completed
+let pipelineHTML = "";
+PIPELINE_STAGES.forEach((name, i) => {
+  const isActive = name === activeStage;
+  pipelineHTML += `<div class="p-node ${isActive ? "is-active" : ""}">${isActive ? svgDot : svgCheck}<span class="stage-name">${name}</span></div>`;
+  if (i < PIPELINE_STAGES.length - 1){
+    const nextIsActive = PIPELINE_STAGES[i + 1] === activeStage;
+    pipelineHTML += `<div class="p-seg ${nextIsActive ? "is-live" : ""}">${nextIsActive ? '<span class="p-pulse"></span>' : ""}</div>`;
+  }
+});
+document.getElementById("pipeline-track").innerHTML = pipelineHTML;
 
 /* ---------- render: about / env block ---------- */
 document.getElementById("about-text").innerHTML = `<p>${PROFILE.summary}</p><p>Currently ${PROFILE.currentJob.title.toLowerCase()} at ${PROFILE.currentJob.company}, working across the full path from commit to production — pipelines, container platforms, cloud provisioning and the monitoring that keeps all of it honest.</p>`;
