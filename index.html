@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santhosh Kumar P S — DevOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============ TOKENS ============ */
+:root{
+  /* base / light-leaning tokens (overridden below for the primary dark control-room theme) */
+  --bg:#F3F2ED;
+  --surface:#FFFFFF;
+  --text:#161A1F;
+  --text-dim:#5B6270;
+  --accent-amber:#B5750B;
+  --accent-teal:#2F7A73;
+  --accent-red:#B34848;
+  --border:#DAD6CC;
+  --hairline: rgba(22,26,31,0.12);
+}
+
+/* Primary brand mode: control-room dark. This is the intended default identity of the site. */
+:root:not([data-theme="light"]){
+  --bg:#0F131A;
+  --surface:#161C25;
+  --text:#E9E6DC;
+  --text-dim:#8B93A3;
+  --accent-amber:#E8A33D;
+  --accent-teal:#4FB3A9;
+  --accent-red:#DD6B6B;
+  --border:#242C39;
+  --hairline: rgba(233,230,220,0.10);
+}
+:root[data-theme="light"]{
+  --bg:#F3F2ED;
+  --surface:#FFFFFF;
+  --text:#161A1F;
+  --text-dim:#5B6270;
+  --accent-amber:#B5750B;
+  --accent-teal:#2F7A73;
+  --accent-red:#B34848;
+  --border:#DAD6CC;
+  --hairline: rgba(22,26,31,0.12);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Public Sans', -apple-system, sans-serif;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  transition:background .3s ease, color .3s ease;
+}
+::selection{background:var(--accent-amber); color:#0F131A;}
+a{color:inherit;}
+.mono{font-family:'IBM Plex Mono', monospace;}
+.wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+img{max-width:100%; display:block;}
+
+:focus-visible{outline:2px solid var(--accent-amber); outline-offset:3px;}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+
+/* ============ NAV ============ */
+.nav{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hairline);
+}
+.nav-inner{
+  max-width:1040px; margin:0 auto; padding:16px 28px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.nav-mark{
+  display:flex; align-items:center; gap:10px;
+  font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:600;
+  text-decoration:none;
+}
+.nav-dot{width:8px; height:8px; border-radius:50%; background:var(--accent-teal); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent-teal) 25%, transparent);}
+.nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+.nav-links a{
+  text-decoration:none; font-size:14.5px; color:var(--text-dim);
+  border-bottom:1px solid transparent; padding-bottom:2px;
+  transition:color .15s ease, border-color .15s ease;
+}
+.nav-links a:hover{color:var(--text); border-color:var(--accent-amber);}
+.nav-toggle{display:none;}
+@media (max-width:680px){
+  .nav-links{display:none;}
+}
+
+/* ============ HERO ============ */
+.hero{padding:76px 0 56px;}
+.hero-top{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  margin-bottom:34px;
+}
+.status-chip{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--accent-teal);
+  border:1px solid var(--border); border-radius:100px; padding:6px 13px 6px 10px;
+}
+.status-chip .pulse{
+  width:7px; height:7px; border-radius:50%; background:var(--accent-teal);
+  animation:pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:1; box-shadow:0 0 0 0 color-mix(in srgb, var(--accent-teal) 45%, transparent);}
+  50%{opacity:.75; box-shadow:0 0 0 5px transparent;}
+}
+
+h1{
+  font-size:clamp(34px, 5.6vw, 58px);
+  line-height:1.05;
+  letter-spacing:-0.01em;
+  margin:0 0 12px;
+  font-weight:700;
+}
+.role-line{
+  font-family:'IBM Plex Mono', monospace;
+  color:var(--accent-amber);
+  font-size:clamp(15px, 2vw, 18px);
+  margin:0 0 22px;
+}
+.summary{
+  max-width:62ch;
+  color:var(--text-dim);
+  font-size:17px;
+  margin:0 0 30px;
+}
+.hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+.btn{
+  font-size:14.5px; font-weight:600; text-decoration:none;
+  padding:12px 22px; border-radius:8px; display:inline-block;
+  transition:transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.btn-primary{background:var(--accent-amber); color:#161105;}
+.btn-primary:hover{transform:translateY(-1px);}
+.btn-ghost{border:1px solid var(--border); color:var(--text);}
+.btn-ghost:hover{border-color:var(--accent-amber); color:var(--accent-amber);}
+
+/* pipeline strip */
+.pipeline{
+  margin-top:54px; border:1px solid var(--border); border-radius:12px;
+  background:var(--surface); padding:26px 24px 22px; overflow:hidden;
+}
+.pipeline-label{
+  font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim);
+  margin:0 0 20px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+}
+.pipeline-track{position:relative; display:flex; justify-content:space-between; align-items:center;}
+.pipeline-line{
+  position:absolute; left:14px; right:14px; top:14px; height:2px;
+  background:var(--border); z-index:0;
+}
+.pipeline-line-fill{
+  position:absolute; left:14px; top:14px; height:2px; width:calc(100% - 28px);
+  background:linear-gradient(90deg, var(--accent-teal), var(--accent-amber));
+  z-index:1; transform-origin:left center;
+  animation:fillmove 6s ease-in-out infinite;
+}
+@keyframes fillmove{
+  0%{transform:scaleX(0.02);}
+  70%{transform:scaleX(1);}
+  100%{transform:scaleX(1);}
+}
+.stage{position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:10px; flex:1;}
+.stage-node{
+  width:28px; height:28px; border-radius:50%;
+  background:var(--bg); border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+}
+.stage:last-child .stage-node{border-color:var(--accent-amber); background:color-mix(in srgb, var(--accent-amber) 18%, var(--bg));}
+.stage:last-child .stage-node::after{content:""; width:8px; height:8px; border-radius:50%; background:var(--accent-amber);}
+.stage-name{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim); text-align:center;}
+.stage:last-child .stage-name{color:var(--accent-amber);}
+
+/* ============ SECTION SCAFFOLD ============ */
+section{padding:64px 0; border-top:1px solid var(--hairline);}
+.section-head{margin-bottom:30px;}
+.section-head h2{font-size:26px; margin:0 0 8px; font-weight:700;}
+.section-head p{color:var(--text-dim); margin:0; max-width:60ch; font-size:15px;}
+
+/* ============ ABOUT / ENV BLOCK ============ */
+.about-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:44px;}
+@media (max-width:760px){.about-grid{grid-template-columns:1fr;}}
+.about-text p{color:var(--text-dim); font-size:15.5px; margin:0 0 16px;}
+.about-text p:last-child{margin-bottom:0;}
+.env-block{
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:20px 22px; font-family:'IBM Plex Mono', monospace; font-size:13.5px;
+}
+.env-block .env-title{color:var(--text-dim); font-size:11.5px; margin-bottom:14px;}
+.env-row{display:flex; gap:10px; padding:5px 0; border-bottom:1px dashed var(--hairline);}
+.env-row:last-child{border-bottom:none;}
+.env-key{color:var(--accent-teal); white-space:nowrap;}
+.env-val{color:var(--text);}
+
+/* ============ EXPERIENCE / LOG ============ */
+.job{margin-bottom:8px;}
+.job-head{
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
+  margin-bottom:18px;
+}
+.job-head h3{font-size:19px; margin:0;}
+.job-head .job-period{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--text-dim);}
+.job-company{color:var(--accent-amber); font-size:14.5px; margin:2px 0 0;}
+
+.log{border-left:1px solid var(--border); padding-left:0; margin:0; list-style:none;}
+.log-entry{
+  position:relative; padding:0 0 18px 26px; font-size:14.8px; color:var(--text-dim);
+}
+.log-entry::before{
+  content:""; position:absolute; left:-5px; top:5px; width:9px; height:9px;
+  border-radius:50%; background:var(--bg); border:2px solid var(--accent-teal);
+}
+.log-entry .log-tag{
+  display:block; font-family:'IBM Plex Mono', monospace; font-size:11.5px;
+  color:var(--text); opacity:.6; margin-bottom:3px;
+}
+.log-entry b{color:var(--text); font-weight:600;}
+
+.log-more{margin-top:6px; margin-left:26px;}
+.log-more-btn{
+  font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--accent-amber);
+  background:none; border:1px solid var(--border); border-radius:6px; padding:8px 14px;
+  cursor:pointer;
+}
+.log-more-btn:hover{border-color:var(--accent-amber);}
+.log-hidden{display:none;}
+
+/* ============ PROJECTS ============ */
+.projects-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+@media (max-width:760px){.projects-grid{grid-template-columns:1fr;}}
+.repo{
+  border:1px solid var(--border); border-radius:10px; padding:22px;
+  background:var(--surface);
+}
+.repo-name{
+  font-family:'IBM Plex Mono', monospace; font-size:15px; font-weight:600; margin:0 0 10px;
+  display:flex; align-items:center; gap:8px;
+}
+.repo-name svg{flex-shrink:0; opacity:.75;}
+.repo-desc{color:var(--text-dim); font-size:14.5px; margin:0 0 14px;}
+.repo-impact{
+  font-size:13.5px; color:var(--accent-teal); margin:0 0 14px; font-family:'IBM Plex Mono', monospace;
+}
+.tags{display:flex; flex-wrap:wrap; gap:7px;}
+.tag{
+  font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim);
+  border:1px solid var(--border); border-radius:5px; padding:3px 8px;
+}
+
+/* ============ SKILLS ============ */
+.skills-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+@media (max-width:640px){.skills-grid{grid-template-columns:1fr;}}
+.skill-panel{border:1px solid var(--border); border-radius:10px; padding:18px 20px; background:var(--surface);}
+.skill-panel h4{
+  margin:0 0 12px; font-size:13px; font-family:'IBM Plex Mono', monospace; color:var(--text-dim); font-weight:500;
+}
+.skill-items{display:flex; flex-wrap:wrap; gap:9px 14px;}
+.skill-item{display:flex; align-items:center; gap:7px; font-size:14px;}
+.skill-item::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent-teal); flex-shrink:0;}
+
+/* ============ CREDS ============ */
+.creds-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+@media (max-width:640px){.creds-grid{grid-template-columns:1fr;}}
+.cred-card{border:1px solid var(--border); border-radius:10px; padding:20px; background:var(--surface);}
+.cred-card .k{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim); margin-bottom:8px;}
+.cred-card .v{font-size:15.5px; font-weight:600; margin-bottom:4px;}
+.cred-card .sub{font-size:13.5px; color:var(--text-dim);}
+
+/* ============ CONTACT ============ */
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:44px;}
+@media (max-width:760px){.contact-grid{grid-template-columns:1fr; gap:34px;}}
+.contact-links{display:flex; flex-direction:column; gap:14px;}
+.contact-link{
+  display:flex; align-items:center; gap:12px; text-decoration:none;
+  border:1px solid var(--border); border-radius:9px; padding:14px 16px;
+  font-size:14.5px; transition:border-color .15s ease;
+}
+.contact-link:hover{border-color:var(--accent-amber);}
+.contact-link svg{flex-shrink:0; color:var(--accent-amber);}
+.contact-link .cl-label{color:var(--text-dim); font-size:12px; font-family:'IBM Plex Mono', monospace; display:block; margin-bottom:2px;}
+
+form{display:flex; flex-direction:column; gap:14px;}
+.field label{display:block; font-size:12.5px; font-family:'IBM Plex Mono', monospace; color:var(--text-dim); margin-bottom:6px;}
+.field input, .field textarea{
+  width:100%; background:var(--surface); border:1px solid var(--border); border-radius:8px;
+  padding:11px 13px; color:var(--text); font-family:'Public Sans', sans-serif; font-size:14.5px;
+}
+.field textarea{resize:vertical; min-height:100px;}
+.field input:focus, .field textarea:focus{border-color:var(--accent-amber); outline:none;}
+.form-note{font-size:12.5px; color:var(--text-dim); margin:0;}
+.submit-btn{
+  align-self:flex-start; background:var(--accent-amber); color:#161105; border:none;
+  border-radius:8px; padding:12px 24px; font-weight:600; font-size:14.5px; cursor:pointer;
+}
+.submit-btn:hover{transform:translateY(-1px);}
+
+/* ============ FOOTER ============ */
+footer{padding:34px 0 50px; border-top:1px solid var(--hairline);}
+.foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--text-dim); font-family:'IBM Plex Mono', monospace;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-mark" href="#top"><span class="nav-dot"></span>SK/devops</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top" class="wrap">
+
+  <section class="hero" style="border-top:none; padding-top:56px;">
+    <div class="hero-top">
+      <span class="status-chip"><span class="pulse"></span><span id="uptime-chip">systems nominal</span></span>
+    </div>
+    <h1 id="hero-name">Santhosh Kumar P S</h1>
+    <p class="role-line" id="hero-role">devops.engineer — ci/cd · kubernetes · cloud infrastructure</p>
+    <p class="summary" id="hero-summary"></p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#experience">View experience</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+
+    <div class="pipeline">
+      <p class="pipeline-label">
+        <span id="pipeline-job">tech-mahindra/telecom-middleware</span>
+        <span id="pipeline-duration">build: passing</span>
+      </p>
+      <div class="pipeline-track">
+        <div class="pipeline-line"></div>
+        <div class="pipeline-line-fill"></div>
+        <div class="stage"><div class="stage-node"></div><span class="stage-name">code</span></div>
+        <div class="stage"><div class="stage-node"></div><span class="stage-name">build</span></div>
+        <div class="stage"><div class="stage-node"></div><span class="stage-name">test</span></div>
+        <div class="stage"><div class="stage-node"></div><span class="stage-name">deploy</span></div>
+        <div class="stage"><div class="stage-node"></div><span class="stage-name">monitor</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head">
+      <h2>About</h2>
+      <p>What three years in production infrastructure actually looked like.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text" id="about-text"></div>
+      <div class="env-block">
+        <div class="env-title">~/profile.env</div>
+        <div id="env-rows"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <p>A running log of what shipped, in roughly the order it happened.</p>
+    </div>
+    <div id="jobs"></div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <p>Independent builds outside day-to-day work.</p>
+    </div>
+    <div class="projects-grid" id="projects-grid"></div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head">
+      <h2>Skills</h2>
+      <p>Tools in active use, grouped by where they sit in the stack.</p>
+    </div>
+    <div class="skills-grid" id="skills-grid"></div>
+  </section>
+
+  <section id="credentials">
+    <div class="section-head">
+      <h2>Certifications &amp; education</h2>
+    </div>
+    <div class="creds-grid" id="creds-grid"></div>
+  </section>
+
+  <section id="contact">
+    <div class="section-head">
+      <h2>Contact</h2>
+      <p>Open to DevOps and platform engineering roles. The form below opens a message in your mail app, addressed and ready to send.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-links" id="contact-links"></div>
+      <form id="contact-form">
+        <div class="field">
+          <label for="cf-name">Your name</label>
+          <input id="cf-name" type="text" required>
+        </div>
+        <div class="field">
+          <label for="cf-email">Your email</label>
+          <input id="cf-email" type="email" required>
+        </div>
+        <div class="field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" required></textarea>
+        </div>
+        <p class="form-note">Sends via your default mail app — nothing is stored or transmitted by this page itself.</p>
+        <button class="submit-btn" type="submit">Send message</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div class="foot-row">
+    <span>© <span id="foot-year"></span> Santhosh Kumar P S</span>
+    <span id="foot-rendered"></span>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   PROFILE DATA — single source of truth.
+   To keep this site current, edit this object only; every section
+   (hero, about, experience, projects, skills, credentials, contact)
+   renders from it automatically. Tenure and "systems nominal" copy
+   are computed live from START_DATE on every page load, so those two
+   details stay accurate without any manual edits.
+   ===================================================================== */
+const PROFILE = {
+  name: "Santhosh Kumar P S",
+  role: "DevOps Engineer",
+  email: "santhoshkumarsingaraj.3722@gmail.com",
+  phone: "+91-9894580253",
+  linkedin: "https://linkedin.com/in/santhosh-kumar-p-s",
+  location: "India",
+
+  summary: "DevOps engineer with three years building CI/CD pipelines, containerized deployments, and cloud infrastructure for production telecom middleware. Comfortable owning a release from a Jenkins job through Kubernetes rollout to the Grafana dashboard that watches it afterward, and focused next on deeper platform engineering and GitOps work.",
+
+  currentJob: {
+    company: "Tech Mahindra",
+    companySlug: "tech-mahindra/telecom-middleware",
+    title: "Associate Software Engineer",
+    startDate: "2023-09-01",
+    logHighlights: [
+      { tag: "reliability", text: "Cut incident resolution time by <b>35%</b> managing log analysis and system administration across 50+ production Linux servers." },
+      { tag: "platform", text: "Implemented Kubernetes Deployments, Ingress and HPA autoscaling, lifting application uptime to <b>99.9%</b> while cutting infra cost by 20%." },
+      { tag: "automation", text: "Wrote Ansible playbooks that reduced manual environment setup time by <b>60%</b> across Dev, Test and Prod." },
+      { tag: "delivery", text: "Built Jenkins pipelines for Maven-based Spring Boot services, with SonarQube and Trivy scanning gating every release." },
+      { tag: "infrastructure", text: "Provisioned Azure and AWS infrastructure — networking, Kubernetes, storage, security — with Terraform." }
+    ],
+    logMore: [
+      { tag: "observability", text: "Stood up Prometheus, Grafana and the ELK stack for metrics, logs and application health across environments." },
+      { tag: "networking", text: "Configured NGINX, SSL/TLS, DNS and load balancers for secure, highly available API routing." },
+      { tag: "containers", text: "Containerized Spring Boot middleware with Docker, optimizing images and managing versions across Docker Hub and Azure Container Registry." },
+      { tag: "scripting", text: "Automated deployment, validation and release workflows with Bash and PowerShell scripts." },
+      { tag: "source-control", text: "Managed Git/GitHub branching, pull requests and releases across the team." }
+    ]
+  },
+
+  projects: [
+    {
+      name: "eks-platform-gitops",
+      desc: "Production-grade EKS platform provisioned with Terraform and operated through ArgoCD GitOps.",
+      impact: "→ cut deployment time by 70%",
+      tags: ["Terraform", "EKS", "ArgoCD", "GitHub Actions", "Trivy", "IRSA"]
+    },
+    {
+      name: "observability-incident-pipeline",
+      desc: "End-to-end observability and incident-response stack with SLO-based alerting and chaos testing.",
+      impact: "→ cut MTTR by 40%",
+      tags: ["Prometheus", "Grafana", "Loki", "Alertmanager", "Chaos Mesh"]
+    }
+  ],
+
+  skills: [
+    { name: "Languages", items: ["Java", "Python", "Bash"] },
+    { name: "Cloud & platforms", items: ["Azure", "AKS", "ACR", "Azure Key Vault", "AWS EC2", "IAM", "ECR", "S3", "CloudWatch"] },
+    { name: "CI/CD & version control", items: ["Git", "GitHub", "Jenkins"] },
+    { name: "Containers & orchestration", items: ["Docker", "Kubernetes", "NGINX"] },
+    { name: "Infrastructure & automation", items: ["Linux", "Terraform", "Ansible"] }
+  ],
+
+  certifications: [
+    { title: "Oracle Certified Associate — Java SE 8 Programmer", sub: "Oracle" },
+    { title: "Microsoft Certified: Azure Fundamentals(AZ-900)", sub: "Microsoft" }
+  ],
+  education: [
+    { title: "B.E., Computer Science and Engineering", sub: "M. Kumarasamy College of Engineering · 2019–2023" }
+  ]
+};
+
+/* ---------- helpers ---------- */
+function tenureFrom(dateStr){
+  const start = new Date(dateStr);
+  const now = new Date();
+  let months = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+  if (now.getDate() < start.getDate()) months -= 1;
+  const years = Math.floor(months / 12);
+  const rem = months % 12;
+  const parts = [];
+  if (years) parts.push(years + (years === 1 ? " yr" : " yrs"));
+  parts.push(rem + (rem === 1 ? " mo" : " mos"));
+  return parts.join(" ");
+}
+function monthYear(dateStr){
+  return new Date(dateStr).toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+const svgMail = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>';
+const svgPhone = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>';
+const svgLink = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>';
+const svgRepo = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h13a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2z"/><path d="M4 16h15"/></svg>';
+
+/* ---------- render: hero ---------- */
+document.getElementById("hero-name").textContent = PROFILE.name;
+document.getElementById("hero-summary").textContent = PROFILE.summary;
+document.getElementById("pipeline-job").textContent = PROFILE.currentJob.companySlug;
+document.getElementById("pipeline-duration").textContent = "in production for " + tenureFrom(PROFILE.currentJob.startDate);
+
+/* ---------- render: about / env block ---------- */
+document.getElementById("about-text").innerHTML = `<p>${PROFILE.summary}</p><p>Currently ${PROFILE.currentJob.title.toLowerCase()} at ${PROFILE.currentJob.company}, working across the full path from commit to production — pipelines, container platforms, cloud provisioning and the monitoring that keeps all of it honest.</p>`;
+
+const envRows = [
+  ["ROLE", PROFILE.role],
+  ["EXPERIENCE", tenureFrom(PROFILE.currentJob.startDate) + " and counting"],
+  ["EMPLOYER", PROFILE.currentJob.company],
+  ["LOCATION", PROFILE.location],
+  ["CERT", PROFILE.certifications[0] ? PROFILE.certifications[0].title.split(" — ")[0] : "—"],
+  ["EDUCATION", "B.E. CSE, 2023"]
+];
+document.getElementById("env-rows").innerHTML = envRows.map(r =>
+  `<div class="env-row"><span class="env-key">${r[0]}=</span><span class="env-val">"${r[1]}"</span></div>`
+).join("");
+
+/* ---------- render: experience log ---------- */
+const job = PROFILE.currentJob;
+const jobsEl = document.getElementById("jobs");
+const logItem = (h) => `<li class="log-entry"><span class="log-tag">${h.tag}</span>${h.text}</li>`;
+jobsEl.innerHTML = `
+  <div class="job">
+    <div class="job-head">
+      <div>
+        <h3>${job.title}</h3>
+        <p class="job-company">${job.company}</p>
+      </div>
+      <span class="job-period mono">${monthYear(job.startDate)} — present · ${tenureFrom(job.startDate)}</span>
+    </div>
+    <ul class="log" id="log-main">
+      ${job.logHighlights.map(logItem).join("")}
+      <span class="log-hidden" id="log-extra">${job.logMore.map(logItem).join("")}</span>
+    </ul>
+    <div class="log-more">
+      <button class="log-more-btn" id="log-toggle" type="button">show full log (+${job.logMore.length})</button>
+    </div>
+  </div>
+`;
+document.getElementById("log-toggle").addEventListener("click", function(){
+  const extra = document.getElementById("log-extra");
+  const expanded = extra.style.display === "inline";
+  extra.style.display = expanded ? "none" : "inline";
+  this.textContent = expanded ? `show full log (+${job.logMore.length})` : "show less";
+});
+
+/* ---------- render: projects ---------- */
+document.getElementById("projects-grid").innerHTML = PROFILE.projects.map(p => `
+  <div class="repo">
+    <p class="repo-name">${svgRepo}${p.name}</p>
+    <p class="repo-desc">${p.desc}</p>
+    <p class="repo-impact">${p.impact}</p>
+    <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+  </div>
+`).join("");
+
+/* ---------- render: skills ---------- */
+document.getElementById("skills-grid").innerHTML = PROFILE.skills.map(s => `
+  <div class="skill-panel">
+    <h4>${s.name}</h4>
+    <div class="skill-items">${s.items.map(i => `<span class="skill-item">${i}</span>`).join("")}</div>
+  </div>
+`).join("");
+
+/* ---------- render: credentials ---------- */
+const credCard = (c) => `<div class="cred-card"><p class="v">${c.title}</p><p class="sub">${c.sub}</p></div>`;
+document.getElementById("creds-grid").innerHTML =
+  PROFILE.certifications.map(credCard).join("") + PROFILE.education.map(credCard).join("");
+
+/* ---------- render: contact links ---------- */
+document.getElementById("contact-links").innerHTML = `
+  <a class="contact-link" href="mailto:${PROFILE.email}">${svgMail}<span><span class="cl-label">Email</span>${PROFILE.email}</span></a>
+  <a class="contact-link" href="tel:${PROFILE.phone}">${svgPhone}<span><span class="cl-label">Phone</span>${PROFILE.phone}</span></a>
+  <a class="contact-link" href="${PROFILE.linkedin}" target="_blank" rel="noopener">${svgLink}<span><span class="cl-label">LinkedIn</span>${PROFILE.linkedin.replace('https://','')}</span></a>
+`;
+
+/* ---------- contact form -> mailto ---------- */
+document.getElementById("contact-form").addEventListener("submit", function(e){
+  e.preventDefault();
+  const name = document.getElementById("cf-name").value.trim();
+  const email = document.getElementById("cf-email").value.trim();
+  const message = document.getElementById("cf-message").value.trim();
+  const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+  const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+  window.location.href = `mailto:${PROFILE.email}?subject=${subject}&body=${body}`;
+});
+
+/* ---------- footer ---------- */
+document.getElementById("foot-year").textContent = new Date().getFullYear();
+document.getElementById("foot-rendered").textContent = "rendered " + new Date().toLocaleDateString("en-US", { year:"numeric", month:"short", day:"numeric" });
+</script>
+</body>
+</html>
