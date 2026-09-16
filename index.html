@@ -345,7 +345,7 @@ footer{padding:34px 0 50px; border-top:1px solid var(--hairline);}
 
     <div class="pipeline">
       <p class="pipeline-label">
-        <span id="pipeline-job">tech-mahindra/telecom-middleware</span>
+        <span id="pipeline-job">tech-mahindra</span>
         <span id="pipeline-duration">build: passing</span>
       </p>
       <div class="pipeline-track">
@@ -461,7 +461,7 @@ const PROFILE = {
 
   currentJob: {
     company: "Tech Mahindra",
-    companySlug: "tech-mahindra/telecom-middleware",
+    companySlug: "tech-mahindra",
     title: "Associate Software Engineer",
     startDate: "2023-09-01",
     logHighlights: [
@@ -547,7 +547,7 @@ const envRows = [
   ["EXPERIENCE", tenureFrom(PROFILE.currentJob.startDate) + " and counting"],
   ["EMPLOYER", PROFILE.currentJob.company],
   ["LOCATION", PROFILE.location],
-  ["CERT", PROFILE.certifications[0] ? PROFILE.certifications[0].title.split(" — ")[0] : "—"],
+  ["CERT", PROFILE.certifications[0] ? PROFILE.certifications[1].title.split(" — ")[0] : "—"],
   ["EDUCATION", "B.E. CSE, 2023"]
 ];
 document.getElementById("env-rows").innerHTML = envRows.map(r =>
