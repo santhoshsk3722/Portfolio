@@ -1,652 +1,3347 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="ops-dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Santhosh Kumar P S — DevOps Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santhosh Kumar P S — DevOps & Cloud Platform Engineer</title>
+  <meta name="description" content="Portfolio of Santhosh Kumar P S, DevOps Engineer specializing in CI/CD pipelines, Kubernetes, Terraform IaC, AWS, Azure, and GitOps reliability engineering.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-/* ============ TOKENS ============ */
-:root{
-  /* base / light-leaning tokens (overridden below for the primary dark control-room theme) */
-  --bg:#F3F2ED;
-  --surface:#FFFFFF;
-  --text:#161A1F;
-  --text-dim:#5B6270;
-  --accent-amber:#B5750B;
-  --accent-teal:#2F7A73;
-  --accent-red:#B34848;
-  --border:#DAD6CC;
-  --hairline: rgba(22,26,31,0.12);
-}
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS & SYSTEM
+       ========================================================================== */
+    :root {
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
 
-/* Primary brand mode: control-room dark. This is the intended default identity of the site. */
-:root:not([data-theme="light"]){
-  --bg:#0F131A;
-  --surface:#161C25;
-  --text:#E9E6DC;
-  --text-dim:#8B93A3;
-  --accent-amber:#E8A33D;
-  --accent-teal:#4FB3A9;
-  --accent-red:#DD6B6B;
-  --border:#242C39;
-  --hairline: rgba(233,230,220,0.10);
-}
-:root[data-theme="light"]{
-  --bg:#F3F2ED;
-  --surface:#FFFFFF;
-  --text:#161A1F;
-  --text-dim:#5B6270;
-  --accent-amber:#B5750B;
-  --accent-teal:#2F7A73;
-  --accent-red:#B34848;
-  --border:#DAD6CC;
-  --hairline: rgba(22,26,31,0.12);
-}
+      /* Control Room Dark (Default Theme) */
+      --bg-base: #090D16;
+      --bg-surface: #101624;
+      --bg-surface-elevated: #161F33;
+      --bg-surface-hover: #1C2740;
+      --text-primary: #F1F5F9;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.14);
+      --border-focus: #00F0FF;
+      
+      --cyan: #00F0FF;
+      --cyan-glow: rgba(0, 240, 255, 0.25);
+      --amber: #F59E0B;
+      --amber-glow: rgba(245, 158, 11, 0.25);
+      --emerald: #10B981;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --rose: #F43F5E;
+      --indigo: #6366F1;
 
-*{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Public Sans', -apple-system, sans-serif;
-  line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-  transition:background .3s ease, color .3s ease;
-}
-::selection{background:var(--accent-amber); color:#0F131A;}
-a{color:inherit;}
-.mono{font-family:'IBM Plex Mono', monospace;}
-.wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
-img{max-width:100%; display:block;}
+      --glow-accent: var(--cyan);
+      --card-radius: 12px;
+      --header-height: 68px;
+      --shadow-elevation: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+      --shadow-glow: 0 0 20px -5px var(--cyan-glow);
+    }
 
-:focus-visible{outline:2px solid var(--accent-amber); outline-offset:3px;}
+    [data-theme="cyber-matrix"] {
+      --bg-base: #050E09;
+      --bg-surface: #0A1810;
+      --bg-surface-elevated: #0F2418;
+      --bg-surface-hover: #163322;
+      --text-primary: #E2FCEF;
+      --text-secondary: #86EFAC;
+      --text-muted: #4ADE80;
+      --border-subtle: rgba(74, 222, 128, 0.15);
+      --border-medium: rgba(74, 222, 128, 0.25);
+      --cyan: #22C55E;
+      --cyan-glow: rgba(34, 197, 94, 0.3);
+      --amber: #EAB308;
+      --emerald: #22C55E;
+      --glow-accent: #22C55E;
+    }
 
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto;}
-  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
-}
+    [data-theme="lab-light"] {
+      --bg-base: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-surface-elevated: #F1F5F9;
+      --bg-surface-hover: #E2E8F0;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #64748B;
+      --border-subtle: rgba(15, 23, 42, 0.08);
+      --border-medium: rgba(15, 23, 42, 0.16);
+      --border-focus: #0284C7;
+      --cyan: #0284C7;
+      --cyan-glow: rgba(2, 132, 199, 0.2);
+      --amber: #D97706;
+      --amber-glow: rgba(217, 119, 6, 0.2);
+      --emerald: #059669;
+      --emerald-glow: rgba(5, 150, 105, 0.2);
+      --glow-accent: #0284C7;
+      --shadow-elevation: 0 10px 25px -5px rgba(0, 0, 0, 0.07);
+    }
 
-/* ============ NAV ============ */
-.nav{
-  position:sticky; top:0; z-index:50;
-  background:color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--hairline);
-}
-.nav-inner{
-  max-width:1040px; margin:0 auto; padding:16px 28px;
-  display:flex; align-items:center; justify-content:space-between;
-}
-.nav-mark{
-  display:flex; align-items:center; gap:10px;
-  font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:600;
-  text-decoration:none;
-}
-.nav-dot{width:8px; height:8px; border-radius:50%; background:var(--accent-teal); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent-teal) 25%, transparent);}
-.nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
-.nav-links a{
-  text-decoration:none; font-size:14.5px; color:var(--text-dim);
-  border-bottom:1px solid transparent; padding-bottom:2px;
-  transition:color .15s ease, border-color .15s ease;
-}
-.nav-links a:hover{color:var(--text); border-color:var(--accent-amber);}
-.nav-toggle{display:none;}
-@media (max-width:680px){
-  .nav-links{display:none;}
-}
+    /* Reset & Base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      position: relative;
+    }
 
-/* ============ HERO ============ */
-.hero{padding:76px 0 56px;}
-.hero-top{
-  display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap;
-  margin-bottom:34px;
-}
-.status-chip{
-  display:inline-flex; align-items:center; gap:8px;
-  font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--accent-teal);
-  border:1px solid var(--border); border-radius:100px; padding:6px 13px 6px 10px;
-}
-.status-chip .pulse{
-  width:7px; height:7px; border-radius:50%; background:var(--accent-teal);
-  animation:pulse 2.2s ease-in-out infinite;
-}
-@keyframes pulse{
-  0%,100%{opacity:1; box-shadow:0 0 0 0 color-mix(in srgb, var(--accent-teal) 45%, transparent);}
-  50%{opacity:.75; box-shadow:0 0 0 5px transparent;}
-}
+    /* Ambient dynamic grid background */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+      mask-image: radial-gradient(circle at center, black, transparent 85%);
+      -webkit-mask-image: radial-gradient(circle at center, black, transparent 85%);
+    }
 
-h1{
-  font-size:clamp(34px, 5.6vw, 58px);
-  line-height:1.05;
-  letter-spacing:-0.01em;
-  margin:0 0 12px;
-  font-weight:700;
-}
-.role-line{
-  font-family:'IBM Plex Mono', monospace;
-  color:var(--accent-amber);
-  font-size:clamp(15px, 2vw, 18px);
-  margin:0 0 22px;
-}
-.summary{
-  max-width:62ch;
-  color:var(--text-dim);
-  font-size:17px;
-  margin:0 0 30px;
-}
-.hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
-.btn{
-  font-size:14.5px; font-weight:600; text-decoration:none;
-  padding:12px 22px; border-radius:8px; display:inline-block;
-  transition:transform .15s ease, background .15s ease, border-color .15s ease;
-}
-.btn-primary{background:var(--accent-amber); color:#161105;}
-.btn-primary:hover{transform:translateY(-1px);}
-.btn-ghost{border:1px solid var(--border); color:var(--text);}
-.btn-ghost:hover{border-color:var(--accent-amber); color:var(--accent-amber);}
+    .cursor-spotlight {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      opacity: 0.45;
+      transition: opacity 0.3s ease;
+    }
 
-/* pipeline strip */
-.pipeline{
-  margin-top:54px; border:1px solid var(--border); border-radius:12px;
-  background:var(--surface); padding:26px 24px 22px; overflow:hidden;
-}
-.pipeline-label{
-  font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim);
-  margin:0 0 20px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-}
-.pipeline-track{display:flex; align-items:center; padding-bottom:28px;}
-.p-node{
-  position:relative; flex:0 0 auto; width:28px; height:28px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center; z-index:2;
-  background:var(--bg); border:2px solid var(--accent-teal);
-  color:var(--accent-teal);
-}
-.p-node svg{width:13px; height:13px;}
-.p-node .stage-name{
-  position:absolute; top:38px; left:50%; transform:translateX(-50%);
-  font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim);
-  white-space:nowrap;
-}
-.p-node.is-active{
-  border-color:var(--accent-amber); color:var(--accent-amber);
-  background:color-mix(in srgb, var(--accent-amber) 16%, var(--bg));
-}
-.p-node.is-active .stage-name{color:var(--accent-amber);}
-.p-node.is-active::before{
-  content:""; position:absolute; inset:-6px; border-radius:50%;
-  border:1px solid var(--accent-amber); opacity:.5;
-  animation:ring 2s ease-out infinite;
-}
-@keyframes ring{
-  0%{transform:scale(.75); opacity:.6;}
-  100%{transform:scale(1.35); opacity:0;}
-}
-.p-seg{flex:1 1 auto; height:2px; background:var(--accent-teal); position:relative; z-index:1; margin:0 -1px;}
-.p-seg.is-live{background:var(--border); overflow:hidden;}
-.p-seg.is-live .p-pulse{
-  position:absolute; top:-3px; left:-18%; width:20%; height:8px; border-radius:4px;
-  background:radial-gradient(closest-side, var(--accent-amber), transparent 75%);
-  animation:travel 2.2s linear infinite;
-}
-@keyframes travel{
-  0%{left:-20%;}
-  100%{left:100%;}
-}
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+    }
 
-/* ============ SECTION SCAFFOLD ============ */
-section{padding:64px 0; border-top:1px solid var(--hairline);}
-.section-head{margin-bottom:30px;}
-.section-head h2{font-size:26px; margin:0 0 8px; font-weight:700;}
-.section-head p{color:var(--text-dim); margin:0; max-width:60ch; font-size:15px;}
+    .mono { font-family: var(--font-mono); }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
 
-/* ============ ABOUT / ENV BLOCK ============ */
-.about-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:44px;}
-@media (max-width:760px){.about-grid{grid-template-columns:1fr;}}
-.about-text p{color:var(--text-dim); font-size:15.5px; margin:0 0 16px;}
-.about-text p:last-child{margin-bottom:0;}
-.env-block{
-  background:var(--surface); border:1px solid var(--border); border-radius:10px;
-  padding:20px 22px; font-family:'IBM Plex Mono', monospace; font-size:13.5px;
-}
-.env-block .env-title{color:var(--text-dim); font-size:11.5px; margin-bottom:14px;}
-.env-row{display:flex; gap:10px; padding:5px 0; border-bottom:1px dashed var(--hairline);}
-.env-row:last-child{border-bottom:none;}
-.env-key{color:var(--accent-teal); white-space:nowrap;}
-.env-val{color:var(--text);}
+    /* ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: color-mix(in srgb, var(--bg-base) 82%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      height: var(--header-height);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.02em;
+    }
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      font-size: 11px;
+      color: var(--cyan);
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+      animation: livePulse 2s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
 
-/* ============ EXPERIENCE / LOG ============ */
-.job{margin-bottom:8px;}
-.job-head{
-  display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
-  margin-bottom:18px;
-}
-.job-head h3{font-size:19px; margin:0;}
-.job-head .job-period{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--text-dim);}
-.job-company{color:var(--accent-amber); font-size:14.5px; margin:2px 0 0;}
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+    }
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.15s ease;
+      position: relative;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-primary);
+    }
+    .nav-link:hover::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--cyan);
+      border-radius: 2px;
+    }
 
-.log{border-left:1px solid var(--border); padding-left:0; margin:0; list-style:none;}
-.log-entry{
-  position:relative; padding:0 0 18px 26px; font-size:14.8px; color:var(--text-dim);
-}
-.log-entry::before{
-  content:""; position:absolute; left:-5px; top:5px; width:9px; height:9px;
-  border-radius:50%; background:var(--bg); border:2px solid var(--accent-teal);
-}
-.log-entry .log-tag{
-  display:block; font-family:'IBM Plex Mono', monospace; font-size:11.5px;
-  color:var(--text); opacity:.6; margin-bottom:3px;
-}
-.log-entry b{color:var(--text); font-weight:600;}
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-hud {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-hud:hover {
+      border-color: var(--border-medium);
+      color: var(--text-primary);
+      background: var(--bg-surface-hover);
+    }
+    .kbd-shortcut {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 10px;
+    }
 
-.log-more{margin-top:6px; margin-left:26px;}
-.log-more-btn{
-  font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--accent-amber);
-  background:none; border:1px solid var(--border); border-radius:6px; padding:8px 14px;
-  cursor:pointer;
-}
-.log-more-btn:hover{border-color:var(--accent-amber);}
-.log-hidden{display:none;}
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      transition: all 0.2s ease;
+    }
+    .icon-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--cyan);
+      background: var(--bg-surface-hover);
+    }
 
-/* ============ PROJECTS ============ */
-.projects-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-@media (max-width:760px){.projects-grid{grid-template-columns:1fr;}}
-.repo{
-  border:1px solid var(--border); border-radius:10px; padding:22px;
-  background:var(--surface);
-}
-.repo-name{
-  font-family:'IBM Plex Mono', monospace; font-size:15px; font-weight:600; margin:0 0 10px;
-  display:flex; align-items:center; gap:8px;
-}
-.repo-name svg{flex-shrink:0; opacity:.75;}
-.repo-desc{color:var(--text-dim); font-size:14.5px; margin:0 0 14px;}
-.repo-impact{
-  font-size:13.5px; color:var(--accent-teal); margin:0 0 14px; font-family:'IBM Plex Mono', monospace;
-}
-.tags{display:flex; flex-wrap:wrap; gap:7px;}
-.tag{
-  font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim);
-  border:1px solid var(--border); border-radius:5px; padding:3px 8px;
-}
+    /* ==========================================================================
+       HERO SECTION & TELEMETRY
+       ========================================================================== */
+    .hero {
+      padding: 64px 0 36px;
+    }
+    .hero-telemetry-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .telemetry-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+    .telemetry-stat {
+      color: var(--cyan);
+      font-weight: 600;
+    }
+    .telemetry-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .telemetry-item span { color: var(--text-secondary); }
 
-/* ============ SKILLS ============ */
-.skills-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
-@media (max-width:640px){.skills-grid{grid-template-columns:1fr;}}
-.skill-panel{border:1px solid var(--border); border-radius:10px; padding:18px 20px; background:var(--surface);}
-.skill-panel h4{
-  margin:0 0 12px; font-size:13px; font-family:'IBM Plex Mono', monospace; color:var(--text-dim); font-weight:500;
-}
-.skill-items{display:flex; flex-wrap:wrap; gap:9px 14px;}
-.skill-item{display:flex; align-items:center; gap:7px; font-size:14px;}
-.skill-item::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent-teal); flex-shrink:0;}
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 40px;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+    .hero-title {
+      font-size: clamp(38px, 5.2vw, 62px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #FFFFFF 30%, var(--cyan) 90%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .role-badge {
+      font-family: var(--font-mono);
+      font-size: clamp(14px, 1.8vw, 17px);
+      color: var(--amber);
+      font-weight: 500;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-desc {
+      font-size: 16.5px;
+      color: var(--text-secondary);
+      max-width: 58ch;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
 
-/* ============ CREDS ============ */
-.creds-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-@media (max-width:640px){.creds-grid{grid-template-columns:1fr;}}
-.cred-card{border:1px solid var(--border); border-radius:10px; padding:20px; background:var(--surface);}
-.cred-card .k{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim); margin-bottom:8px;}
-.cred-card .v{font-size:15.5px; font-weight:600; margin-bottom:4px;}
-.cred-card .sub{font-size:13.5px; color:var(--text-dim);}
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 20px;
+      border-radius: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-action-primary {
+      background: linear-gradient(135deg, var(--cyan), #00A3FF);
+      color: #04101A;
+      box-shadow: 0 4px 18px -4px var(--cyan-glow);
+    }
+    .btn-action-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -4px var(--cyan-glow);
+    }
+    .btn-action-secondary {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      color: var(--text-primary);
+    }
+    .btn-action-secondary:hover {
+      border-color: var(--cyan);
+      background: var(--bg-surface-hover);
+      transform: translateY(-1px);
+    }
+    .btn-action-amber {
+      background: color-mix(in srgb, var(--amber) 15%, transparent);
+      border: 1px solid var(--amber);
+      color: var(--amber);
+    }
+    .btn-action-amber:hover {
+      background: color-mix(in srgb, var(--amber) 25%, transparent);
+      transform: translateY(-1px);
+    }
 
-/* ============ CONTACT ============ */
-.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:44px;}
-@media (max-width:760px){.contact-grid{grid-template-columns:1fr; gap:34px;}}
-.contact-links{display:flex; flex-direction:column; gap:14px;}
-.contact-link{
-  display:flex; align-items:center; gap:12px; text-decoration:none;
-  border:1px solid var(--border); border-radius:9px; padding:14px 16px;
-  font-size:14.5px; transition:border-color .15s ease;
-}
-.contact-link:hover{border-color:var(--accent-amber);}
-.contact-link svg{flex-shrink:0; color:var(--accent-amber);}
-.contact-link .cl-label{color:var(--text-dim); font-size:12px; font-family:'IBM Plex Mono', monospace; display:block; margin-bottom:2px;}
+    /* Hero Quick Spec Card */
+    .hero-spec-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      box-shadow: var(--shadow-elevation);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-spec-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--amber), var(--emerald));
+    }
+    .spec-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .spec-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border-subtle);
+    }
+    .spec-row:last-child { border-bottom: none; }
+    .spec-key { color: var(--text-muted); font-size: 11.5px; }
+    .spec-val { color: var(--text-primary); font-weight: 500; }
+    .spec-val.cyan { color: var(--cyan); }
+    .spec-val.emerald { color: var(--emerald); }
 
-form{display:flex; flex-direction:column; gap:14px;}
-.field label{display:block; font-size:12.5px; font-family:'IBM Plex Mono', monospace; color:var(--text-dim); margin-bottom:6px;}
-.field input, .field textarea{
-  width:100%; background:var(--surface); border:1px solid var(--border); border-radius:8px;
-  padding:11px 13px; color:var(--text); font-family:'Public Sans', sans-serif; font-size:14.5px;
-}
-.field textarea{resize:vertical; min-height:100px;}
-.field input:focus, .field textarea:focus{border-color:var(--accent-amber); outline:none;}
-.form-note{font-size:12.5px; color:var(--text-dim); margin:0;}
-.submit-btn{
-  align-self:flex-start; background:var(--accent-amber); color:#161105; border:none;
-  border-radius:8px; padding:12px 24px; font-weight:600; font-size:14.5px; cursor:pointer;
-}
-.submit-btn:hover{transform:translateY(-1px);}
+    /* ==========================================================================
+       UNIQUE ACTION 1: INTERACTIVE PIPELINE SIMULATOR & LOG STREAMER
+       ========================================================================== */
+    .pipeline-suite {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 26px;
+      box-shadow: var(--shadow-elevation);
+      margin-bottom: 60px;
+      position: relative;
+    }
+    .pipeline-controls-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .pipeline-title-group h3 {
+      font-size: 17px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pipeline-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--cyan) 14%, transparent);
+      color: var(--cyan);
+      border: 1px solid color-mix(in srgb, var(--cyan) 30%, transparent);
+    }
+    .pipeline-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
 
-/* ============ FOOTER ============ */
-footer{padding:34px 0 50px; border-top:1px solid var(--hairline);}
-.foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--text-dim); font-family:'IBM Plex Mono', monospace;}
-</style>
+    .pipeline-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pipeline-select {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 7px 12px;
+      border-radius: 6px;
+      outline: none;
+    }
+    .pipeline-select:focus { border-color: var(--cyan); }
+
+    /* Visual Pipeline Track */
+    .pipeline-track {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 30px 10px 48px;
+    }
+    .pipe-node-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+    }
+    .pipe-node {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-base);
+      border: 2px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .pipe-node-wrap:hover .pipe-node {
+      border-color: var(--cyan);
+      transform: scale(1.08);
+    }
+    .pipe-node.status-success {
+      border-color: var(--emerald);
+      color: var(--emerald);
+      background: color-mix(in srgb, var(--emerald) 12%, var(--bg-base));
+      box-shadow: 0 0 14px var(--emerald-glow);
+    }
+    .pipe-node.status-running {
+      border-color: var(--amber);
+      color: var(--amber);
+      background: color-mix(in srgb, var(--amber) 16%, var(--bg-base));
+      box-shadow: 0 0 20px var(--amber-glow);
+      animation: nodePulse 1.4s infinite ease-in-out;
+    }
+    @keyframes nodePulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 12px var(--amber-glow); }
+      50% { transform: scale(1.12); box-shadow: 0 0 24px var(--amber-glow); }
+    }
+    .pipe-label {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      font-weight: 500;
+      text-align: center;
+    }
+    .pipe-sub {
+      position: absolute;
+      top: 68px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .pipe-segment {
+      flex: 1;
+      height: 3px;
+      background: var(--border-subtle);
+      margin: 0 -2px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .pipe-segment.active-fill {
+      background: linear-gradient(90deg, var(--emerald), var(--cyan));
+    }
+    .pipe-segment.in-progress::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -40%;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      animation: pipeFlow 1.2s linear infinite;
+    }
+    @keyframes pipeFlow {
+      0% { left: -40%; }
+      100% { left: 140%; }
+    }
+
+    /* Live Terminal Console Log */
+    .pipe-terminal {
+      background: #06090F;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .pipe-terminal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 14px;
+      background: #0B0F19;
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .terminal-dots { display: flex; gap: 6px; }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-dot.r { background: #FF5F56; }
+    .terminal-dot.y { background: #FFBD2E; }
+    .terminal-dot.g { background: #27C93F; }
+
+    .terminal-logs {
+      padding: 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #A3B3CC;
+      height: 180px;
+      overflow-y: auto;
+      line-height: 1.7;
+    }
+    .log-line { display: flex; gap: 10px; }
+    .log-time { color: #546682; flex-shrink: 0; }
+    .log-tag { font-weight: 600; flex-shrink: 0; }
+    .tag-info { color: var(--cyan); }
+    .tag-success { color: var(--emerald); }
+    .tag-warn { color: var(--amber); }
+    .tag-deploy { color: #C084FC; }
+
+    /* ==========================================================================
+       UNIQUE ACTION 2: CLUSTER OPS & CHAOS SIMULATOR
+       ========================================================================== */
+    .ops-section {
+      margin-bottom: 64px;
+    }
+    .ops-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 24px;
+    }
+    .telemetry-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 24px;
+    }
+    .card-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .card-header-bar h3 {
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .metric-box {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .metric-val {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--text-primary);
+    }
+    .metric-sub {
+      font-size: 11px;
+      color: var(--emerald);
+      margin-top: 4px;
+    }
+
+    /* Chaos Visual Pod Grid */
+    .chaos-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .pods-container {
+      margin: 18px 0;
+    }
+    .pods-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .pod-cell {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .pod-cell-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .pod-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 6px var(--emerald);
+    }
+    .pod-name {
+      color: var(--text-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 10.5px;
+    }
+    .pod-uptime {
+      color: var(--text-muted);
+      font-size: 9.5px;
+    }
+
+    /* Pod States */
+    .pod-cell.crashed {
+      border-color: var(--rose);
+      background: color-mix(in srgb, var(--rose) 15%, var(--bg-surface-elevated));
+      animation: shake 0.4s ease-in-out;
+    }
+    .pod-cell.crashed .pod-status-dot {
+      background: var(--rose);
+      box-shadow: 0 0 8px var(--rose);
+    }
+    .pod-cell.recovering {
+      border-color: var(--amber);
+      background: color-mix(in srgb, var(--amber) 15%, var(--bg-surface-elevated));
+    }
+    .pod-cell.recovering .pod-status-dot {
+      background: var(--amber);
+      animation: livePulse 0.5s infinite;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-4px); }
+      40%, 80% { transform: translateX(4px); }
+    }
+
+    .chaos-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================================================
+       SECTION SCAFFOLDING & CONTENT SECTIONS
+       ========================================================================== */
+    section {
+      padding: 60px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .section-head {
+      margin-bottom: 32px;
+    }
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-head h2 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .section-head p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      max-width: 65ch;
+    }
+
+    /* About Section Grid */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 36px;
+    }
+    .about-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 28px;
+    }
+    .about-card p {
+      color: var(--text-secondary);
+      font-size: 15.5px;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .about-card p:last-child { margin-bottom: 0; }
+    .about-card strong { color: var(--text-primary); font-weight: 600; }
+
+    /* Experience Timeline */
+    .job-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .job-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 28px;
+      position: relative;
+    }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .job-title-group h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .job-company {
+      font-size: 15px;
+      color: var(--cyan);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .job-duration {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--text-muted);
+      background: var(--bg-surface-elevated);
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .job-metrics-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .job-metric-stat {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+    .job-metric-number {
+      font-size: 18px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--amber);
+    }
+    .job-metric-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .log-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .log-item {
+      position: relative;
+      padding-left: 28px;
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .log-item::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan-glow);
+    }
+    .log-badge-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: var(--bg-surface-elevated);
+      color: var(--cyan);
+      border: 1px solid var(--border-subtle);
+      margin-right: 8px;
+      font-weight: 500;
+    }
+
+    .log-accordion-toggle {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--cyan);
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface-elevated);
+      transition: all 0.2s ease;
+    }
+    .log-accordion-toggle:hover {
+      border-color: var(--cyan);
+      background: var(--bg-surface-hover);
+    }
+
+    /* Projects Grid & Action Cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .project-card:hover {
+      border-color: var(--border-medium);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-elevation);
+    }
+    .project-top { margin-bottom: 20px; }
+    .project-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .project-title {
+      font-family: var(--font-mono);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .project-impact {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--emerald);
+      margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .project-desc {
+      color: var(--text-secondary);
+      font-size: 14.5px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .tech-pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 22px;
+    }
+    .tech-pill {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .project-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .skill-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 22px;
+    }
+    .skill-group-title {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-tag {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 5px 11px;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .skill-tag:hover {
+      color: var(--text-primary);
+      border-color: var(--cyan);
+      transform: translateY(-1px);
+    }
+    .skill-bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--cyan);
+    }
+
+    /* Credentials & Education */
+    .creds-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .cred-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 20px;
+    }
+    .cred-issuer {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--amber);
+      margin-bottom: 6px;
+    }
+    .cred-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .cred-meta {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* Contact Section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 36px;
+    }
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .contact-method-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .contact-method-card:hover {
+      border-color: var(--cyan);
+      background: var(--bg-surface-hover);
+    }
+    .contact-method-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact-icon-wrapper {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--bg-surface-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+    .contact-type {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .contact-value {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .contact-form-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 28px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color 0.2s ease;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+    textarea.form-control {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    /* ==========================================================================
+       MODALS, SHELL TERMINAL & OVERLAYS
+       ========================================================================== */
+    /* Floating Shell Launcher */
+    .floating-shell-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #0B111E;
+      color: var(--cyan);
+      border: 1px solid var(--cyan);
+      border-radius: 100px;
+      padding: 12px 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 8px 30px rgba(0, 240, 255, 0.25);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .floating-shell-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 35px rgba(0, 240, 255, 0.4);
+      background: #0F172A;
+    }
+
+    /* Terminal Drawer */
+    .terminal-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .terminal-drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .terminal-window {
+      width: 100%;
+      max-width: 960px;
+      height: 520px;
+      background: #090E17;
+      border: 1px solid var(--border-medium);
+      border-radius: 14px 14px 0 0;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .terminal-drawer-overlay.open .terminal-window {
+      transform: translateY(0);
+    }
+    .terminal-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: #0E1422;
+      border-bottom: 1px solid var(--border-subtle);
+      border-radius: 14px 14px 0 0;
+    }
+    .terminal-title {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .terminal-actions-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .terminal-chips {
+      display: flex;
+      gap: 8px;
+      padding: 8px 18px;
+      background: #0B101C;
+      border-bottom: 1px solid var(--border-subtle);
+      overflow-x: auto;
+    }
+    .cmd-chip {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--cyan);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .cmd-chip:hover {
+      background: var(--cyan);
+      color: #04101A;
+    }
+
+    .terminal-body {
+      flex: 1;
+      padding: 16px 18px;
+      overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #CAD5E2;
+      line-height: 1.65;
+    }
+    .terminal-cli-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .terminal-prompt {
+      color: var(--cyan);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .terminal-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+    }
+
+    /* Command Palette (HUD Ctrl+K) */
+    .hud-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 300;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 15vh;
+    }
+    .hud-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .hud-dialog {
+      width: 100%;
+      max-width: 600px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--card-radius);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      transform: scale(0.96);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hud-overlay.open .hud-dialog {
+      transform: scale(1);
+    }
+    .hud-input-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .hud-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 16px;
+      font-family: inherit;
+    }
+    .hud-list {
+      max-height: 320px;
+      overflow-y: auto;
+      padding: 8px;
+    }
+    .hud-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .hud-item:hover, .hud-item.selected {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+    }
+    .hud-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cyan);
+    }
+
+    /* Architecture Topology Inspector Modal */
+    .topology-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 250;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .topology-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .topology-modal {
+      width: 100%;
+      max-width: 880px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--card-radius);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: 90vh;
+    }
+    .topology-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .topology-body {
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .topology-diagram-container {
+      background: #080C14;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+    .code-preview-block {
+      background: #080C14;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: #94A3B8;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    /* Toast Notification System */
+    .toast-container {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 400;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+    .toast {
+      background: #0F172A;
+      color: #FFFFFF;
+      border: 1px solid var(--cyan);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateX(120%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: auto;
+    }
+    .toast.show { transform: translateX(0); }
+
+    /* Footer */
+    footer {
+      padding: 40px 0 60px;
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Print Styles (1-Click ATS Clean Resume View) */
+    @media print {
+      body { background: #FFFFFF !important; color: #000000 !important; }
+      .bg-grid, .cursor-spotlight, .navbar, .floating-shell-btn, .pipeline-suite,
+      .ops-section, .contact-form-card, .toast-container, .hero-cta-group,
+      .log-accordion-toggle, .project-actions { display: none !important; }
+      .wrap { max-width: 100% !important; padding: 0 !important; }
+      section { border: none !important; padding: 18px 0 !important; }
+      .about-grid, .hero-grid, .projects-grid, .skills-grid, .creds-grid {
+        display: block !important;
+      }
+      .hero { padding-top: 0 !important; }
+      .hero-title { font-size: 28px !important; color: #000 !important; }
+      .hero-spec-card, .job-card, .project-card, .skill-card, .cred-box {
+        border: 1px solid #CCC !important;
+        background: none !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        margin-bottom: 16px !important;
+      }
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .ops-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .creds-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .job-metrics-row { grid-template-columns: 1fr; }
+      .nav-menu { display: none; }
+      .pods-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a class="nav-mark" href="#top"><span class="nav-dot"></span>SK/devops</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
+  <!-- Dynamic Ambient Background Grid & Radial Glow -->
+  <div class="bg-grid"></div>
+  <div class="cursor-spotlight" id="spotlight"></div>
 
-<main id="top" class="wrap">
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="wrap nav-inner">
+      <a href="#top" class="brand-mark" id="brand-logo">
+        <span class="live-dot"></span>
+        <span>SK/devops</span>
+        <span class="brand-badge">prod: online</span>
+      </a>
 
-  <section class="hero" style="border-top:none; padding-top:56px;">
-    <div class="hero-top">
-      <span class="status-chip"><span class="pulse"></span><span id="uptime-chip">systems nominal</span></span>
-    </div>
-    <h1 id="hero-name">Santhosh Kumar P S</h1>
-    <p class="role-line" id="hero-role">devops.engineer — ci/cd · kubernetes · cloud infrastructure</p>
-    <p class="summary" id="hero-summary"></p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#experience">View experience</a>
-      <a class="btn btn-ghost" href="#contact">Get in touch</a>
-    </div>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#simulator" class="nav-link">CI/CD Run</a></li>
+          <li><a href="#cluster-ops" class="nav-link">Cluster Ops</a></li>
+          <li><a href="#experience" class="nav-link">Experience</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
 
-    <div class="pipeline">
-      <p class="pipeline-label">
-        <span id="pipeline-job">tech-mahindra</span>
-        <span id="pipeline-duration">build: passing</span>
-      </p>
-      <div class="pipeline-track" id="pipeline-track"></div>
-    </div>
-  </section>
+      <div class="nav-actions">
+        <button class="btn-hud" id="hud-btn" title="Open HUD Command Palette (Ctrl+K)">
+          <span>Quick Actions</span>
+          <span class="kbd-shortcut">⌘K</span>
+        </button>
 
-  <section id="about">
-    <div class="section-head">
-      <h2>About</h2>
-      <p>What three years in production infrastructure actually looked like.</p>
-    </div>
-    <div class="about-grid">
-      <div class="about-text" id="about-text"></div>
-      <div class="env-block">
-        <div class="env-title">~/profile.env</div>
-        <div id="env-rows"></div>
+        <button class="icon-btn" id="theme-btn" title="Toggle Ops Theme" aria-label="Toggle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+
+        <button class="icon-btn" id="sound-btn" title="Sound Synthesizer: ON" aria-label="Toggle Sound Effects">
+          <svg id="sound-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section id="experience">
-    <div class="section-head">
-      <h2>Experience</h2>
-      <p>A running log of what shipped, in roughly the order it happened.</p>
-    </div>
-    <div id="jobs"></div>
-  </section>
+  <!-- Main Content Wrap -->
+  <main class="wrap" id="top">
 
-  <section id="projects">
-    <div class="section-head">
-      <h2>Projects</h2>
-      <p>Independent builds outside day-to-day work.</p>
-    </div>
-    <div class="projects-grid" id="projects-grid"></div>
-  </section>
-
-  <section id="skills">
-    <div class="section-head">
-      <h2>Skills</h2>
-      <p>Tools in active use, grouped by where they sit in the stack.</p>
-    </div>
-    <div class="skills-grid" id="skills-grid"></div>
-  </section>
-
-  <section id="credentials">
-    <div class="section-head">
-      <h2>Certifications &amp; education</h2>
-    </div>
-    <div class="creds-grid" id="creds-grid"></div>
-  </section>
-
-  <section id="contact">
-    <div class="section-head">
-      <h2>Contact</h2>
-      <p>Open to DevOps and platform engineering roles. The form below opens a message in your mail app, addressed and ready to send.</p>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-links" id="contact-links"></div>
-      <form id="contact-form">
-        <div class="field">
-          <label for="cf-name">Your name</label>
-          <input id="cf-name" type="text" required>
+    <!-- HERO SECTION -->
+    <section class="hero" style="border-top:none;">
+      <div class="hero-telemetry-bar">
+        <div class="telemetry-pill">
+          <span class="live-dot"></span>
+          <span>CLUSTER SLA <span class="telemetry-stat">99.98%</span></span>
+          <span style="color:var(--border-medium)">|</span>
+          <span id="live-ping">PING: 18ms</span>
         </div>
-        <div class="field">
-          <label for="cf-email">Your email</label>
-          <input id="cf-email" type="email" required>
+        <div class="telemetry-group">
+          <div class="telemetry-item">ROLE: <span>Platform / DevOps</span></div>
+          <div class="telemetry-item">INFRA: <span>AWS · Azure · K8s</span></div>
+          <div class="telemetry-item">IAC: <span>Terraform · Ansible</span></div>
         </div>
-        <div class="field">
-          <label for="cf-message">Message</label>
-          <textarea id="cf-message" required></textarea>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="role-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <span>associate.software.engineer @ tech-mahindra</span>
+          </div>
+          <h1 class="hero-title">
+            <span class="gradient-text">Santhosh Kumar P S</span>
+          </h1>
+          <p class="hero-desc">
+            DevOps engineer with three years designing resilient CI/CD pipelines, containerized Kubernetes architectures, and GitOps automation for production telecom middleware. Focused on high-availability cloud platforms, automated security gating, and zero-downtime releases.
+          </p>
+          <div class="hero-cta-group">
+            <button class="btn-action btn-action-primary" id="hero-trigger-btn">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>Simulate Deploy Run</span>
+            </button>
+            <button class="btn-action btn-action-secondary" id="hero-shell-btn">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              <span>Open Cloud Shell</span>
+            </button>
+            <button class="btn-action btn-action-amber" id="recruiter-copy-btn">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>1-Click Recruiter Summary</span>
+            </button>
+          </div>
         </div>
-        <p class="form-note">Sends via your default mail app — nothing is stored or transmitted by this page itself.</p>
-        <button class="submit-btn" type="submit">Send message</button>
-      </form>
-    </div>
-  </section>
 
-</main>
+        <!-- Live Runtime Spec Card -->
+        <div class="hero-spec-card">
+          <div class="spec-header">
+            <span>~/profile.env (Runtime Spec)</span>
+            <span class="emerald mono">● synchronized</span>
+          </div>
+          <div class="spec-rows">
+            <div class="spec-row">
+              <span class="spec-key">ENGINEER</span>
+              <span class="spec-val">Santhosh Kumar P S</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">CURRENT_ROLE</span>
+              <span class="spec-val cyan">Associate Software Engineer</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">TENURE</span>
+              <span class="spec-val" id="spec-tenure">3+ yrs production</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">PRIMARY_ORCHESTRATION</span>
+              <span class="spec-val">Kubernetes (AKS / EKS)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">PROD_SERVERS_MANAGED</span>
+              <span class="spec-val cyan">50+ Linux Instances</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">UPTIME_ACHIEVED</span>
+              <span class="spec-val emerald">99.9% High Availability</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">SECURITY_GATING</span>
+              <span class="spec-val">SonarQube & Trivy Verified</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<footer class="wrap">
-  <div class="foot-row">
-    <span>© <span id="foot-year"></span> Santhosh Kumar P S</span>
-    <span id="foot-rendered"></span>
-  </div>
-</footer>
+      <!-- =====================================================================
+           UNIQUE ACTION 1: INTERACTIVE PIPELINE SIMULATOR & LOG STREAMER
+           ===================================================================== -->
+      <div class="pipeline-suite" id="simulator">
+        <div class="pipeline-controls-bar">
+          <div class="pipeline-title-group">
+            <h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Interactive CI/CD Deployer & Log Streamer</span>
+              <span class="pipeline-badge">LIVE SIMULATION</span>
+            </h3>
+            <p class="pipeline-desc">Trigger a real-time deployment lifecycle with automated stage transitions and realistic log telemetry.</p>
+          </div>
 
-<script>
-/* =====================================================================
-   PROFILE DATA — single source of truth.
-   To keep this site current, edit this object only; every section
-   (hero, about, experience, projects, skills, credentials, contact)
-   renders from it automatically. Tenure and "systems nominal" copy
-   are computed live from START_DATE on every page load, so those two
-   details stay accurate without any manual edits.
-   ===================================================================== */
-const PROFILE = {
-  name: "Santhosh Kumar P S",
-  role: "DevOps Engineer",
-  email: "santhoshkumarsingaraj.3722@gmail.com",
-  phone: "+91-9894580253",
-  linkedin: "https://linkedin.com/in/santhosh-kumar-p-s",
-  location: "India",
+          <div class="pipeline-actions">
+            <select class="pipeline-select" id="pipeline-scenario-select">
+              <option value="springboot">Spring Boot GitOps (Prod Release v2.4.0)</option>
+              <option value="canary">Canary Rollout (10% ➔ 100% Traffic)</option>
+              <option value="security">SecOps Gate (SonarQube + Trivy Container Scan)</option>
+            </select>
 
-  summary: "DevOps engineer with three years building CI/CD pipelines, containerized deployments, and cloud infrastructure for production telecom middleware. Comfortable owning a release from a Jenkins job through Kubernetes rollout to the Grafana dashboard that watches it afterward, and focused next on deeper platform engineering and GitOps work.",
+            <button class="btn-action btn-action-primary" id="run-pipeline-btn" style="padding:7px 16px; font-size:13px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Trigger Build</span>
+            </button>
+            <button class="btn-action btn-action-secondary" id="reset-pipeline-btn" style="padding:7px 14px; font-size:13px;">
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
 
-  currentJob: {
-    company: "Tech Mahindra",
-    companySlug: "tech-mahindra",
-    title: "Associate Software Engineer",
-    startDate: "2023-09-01",
-    logHighlights: [
-      { tag: "reliability", text: "Cut incident resolution time by <b>35%</b> managing log analysis and system administration across 50+ production Linux servers." },
-      { tag: "platform", text: "Implemented Kubernetes Deployments, Ingress and HPA autoscaling, lifting application uptime to <b>99.9%</b> while cutting infra cost by 20%." },
-      { tag: "automation", text: "Wrote Ansible playbooks that reduced manual environment setup time by <b>60%</b> across Dev, Test and Prod." },
-      { tag: "delivery", text: "Built Jenkins pipelines for Maven-based Spring Boot services, with SonarQube and Trivy scanning gating every release." },
-      { tag: "infrastructure", text: "Provisioned Azure and AWS infrastructure — networking, Kubernetes, storage, security — with Terraform." }
-    ],
-    logMore: [
-      { tag: "observability", text: "Stood up Prometheus, Grafana and the ELK stack for metrics, logs and application health across environments." },
-      { tag: "networking", text: "Configured NGINX, SSL/TLS, DNS and load balancers for secure, highly available API routing." },
-      { tag: "containers", text: "Containerized Spring Boot middleware with Docker, optimizing images and managing versions across Docker Hub and Azure Container Registry." },
-      { tag: "scripting", text: "Automated deployment, validation and release workflows with Bash and PowerShell scripts." },
-      { tag: "source-control", text: "Managed Git/GitHub branching, pull requests and releases across the team." }
-    ]
-  },
+        <!-- Track Visualization -->
+        <div class="pipeline-track" id="pipeline-track-nodes">
+          <div class="pipe-node-wrap" data-stage="0">
+            <div class="pipe-node status-success" id="node-0">✓</div>
+            <span class="pipe-label">Code / Git</span>
+            <span class="pipe-sub">Commit @7f4a8b</span>
+          </div>
 
-  projects: [
-    {
-      name: "eks-platform-gitops",
-      desc: "Production-grade EKS platform provisioned with Terraform and operated through ArgoCD GitOps.",
-      impact: "→ cut deployment time by 70%",
-      tags: ["Terraform", "EKS", "ArgoCD", "GitHub Actions", "Trivy", "IRSA"]
-    },
-    {
-      name: "observability-incident-pipeline",
-      desc: "End-to-end observability and incident-response stack with SLO-based alerting and chaos testing.",
-      impact: "→ cut MTTR by 40%",
-      tags: ["Prometheus", "Grafana", "Loki", "Alertmanager", "Chaos Mesh"]
-    }
-  ],
+          <div class="pipe-segment active-fill" id="seg-0"></div>
 
-  skills: [
-    { name: "Languages", items: ["Java", "Python", "Bash"] },
-    { name: "Cloud & platforms", items: ["Azure", "AKS", "ACR", "Azure Key Vault", "AWS EC2", "IAM", "ECR", "S3", "CloudWatch"] },
-    { name: "CI/CD & version control", items: ["Git", "GitHub", "Jenkins"] },
-    { name: "Containers & orchestration", items: ["Docker", "Kubernetes", "NGINX"] },
-    { name: "Infrastructure & automation", items: ["Linux", "Terraform", "Ansible"] }
-  ],
+          <div class="pipe-node-wrap" data-stage="1">
+            <div class="pipe-node status-success" id="node-1">✓</div>
+            <span class="pipe-label">Build / Maven</span>
+            <span class="pipe-sub">Artifacts Built</span>
+          </div>
 
-  certifications: [
-    { title: "Oracle Certified Associate — Java SE 8 Programmer", sub: "Oracle" },
-    { title: "Microsoft Certified: Azure Fundamentals(AZ-900)", sub: "Microsoft" }
-  ],
-  education: [
-    { title: "B.E., Computer Science and Engineering", sub: "M. Kumarasamy College of Engineering · 2019–2023" }
-  ]
-};
+          <div class="pipe-segment active-fill" id="seg-1"></div>
 
-/* ---------- helpers ---------- */
-function tenureFrom(dateStr){
-  const start = new Date(dateStr);
-  const now = new Date();
-  let months = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
-  if (now.getDate() < start.getDate()) months -= 1;
-  const years = Math.floor(months / 12);
-  const rem = months % 12;
-  const parts = [];
-  if (years) parts.push(years + (years === 1 ? " yr" : " yrs"));
-  parts.push(rem + (rem === 1 ? " mo" : " mos"));
-  return parts.join(" ");
-}
-function monthYear(dateStr){
-  return new Date(dateStr).toLocaleDateString("en-US", { month: "short", year: "numeric" });
-}
-const svgMail = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>';
-const svgPhone = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>';
-const svgLink = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>';
-const svgRepo = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h13a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2z"/><path d="M4 16h15"/></svg>';
+          <div class="pipe-node-wrap" data-stage="2">
+            <div class="pipe-node status-success" id="node-2">✓</div>
+            <span class="pipe-label">Trivy & Sonar</span>
+            <span class="pipe-sub">Zero High/Crit</span>
+          </div>
 
-/* ---------- render: hero ---------- */
-document.getElementById("hero-name").textContent = PROFILE.name;
-document.getElementById("hero-summary").textContent = PROFILE.summary;
-document.getElementById("pipeline-job").textContent = PROFILE.currentJob.companySlug;
-document.getElementById("pipeline-duration").textContent = "in production for " + tenureFrom(PROFILE.currentJob.startDate);
+          <div class="pipe-segment active-fill" id="seg-2"></div>
 
-/* ---------- render: pipeline (code -> build -> test -> deploy -> monitor) ---------- */
-const svgCheck = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>';
-const svgDot = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="currentColor"/></svg>';
-const PIPELINE_STAGES = ["code", "build", "test", "deploy", "monitor"];
-const activeStage = "monitor"; // the currently-running stage; everything before it renders as completed
-let pipelineHTML = "";
-PIPELINE_STAGES.forEach((name, i) => {
-  const isActive = name === activeStage;
-  pipelineHTML += `<div class="p-node ${isActive ? "is-active" : ""}">${isActive ? svgDot : svgCheck}<span class="stage-name">${name}</span></div>`;
-  if (i < PIPELINE_STAGES.length - 1){
-    const nextIsActive = PIPELINE_STAGES[i + 1] === activeStage;
-    pipelineHTML += `<div class="p-seg ${nextIsActive ? "is-live" : ""}">${nextIsActive ? '<span class="p-pulse"></span>' : ""}</div>`;
-  }
-});
-document.getElementById("pipeline-track").innerHTML = pipelineHTML;
+          <div class="pipe-node-wrap" data-stage="3">
+            <div class="pipe-node status-success" id="node-3">✓</div>
+            <span class="pipe-label">ArgoCD Sync</span>
+            <span class="pipe-sub">GitOps Drift: 0</span>
+          </div>
 
-/* ---------- render: about / env block ---------- */
-document.getElementById("about-text").innerHTML = `<p>${PROFILE.summary}</p><p>Currently ${PROFILE.currentJob.title.toLowerCase()} at ${PROFILE.currentJob.company}, working across the full path from commit to production — pipelines, container platforms, cloud provisioning and the monitoring that keeps all of it honest.</p>`;
+          <div class="pipe-segment active-fill" id="seg-3"></div>
 
-const envRows = [
-  ["ROLE", PROFILE.role],
-  ["EXPERIENCE", tenureFrom(PROFILE.currentJob.startDate) + " and counting"],
-  ["EMPLOYER", PROFILE.currentJob.company],
-  ["LOCATION", PROFILE.location],
-  ["CERT", PROFILE.certifications[0] ? PROFILE.certifications[1].title.split(" — ")[0] : "—"],
-  ["EDUCATION", "B.E. CSE, 2023"]
-];
-document.getElementById("env-rows").innerHTML = envRows.map(r =>
-  `<div class="env-row"><span class="env-key">${r[0]}=</span><span class="env-val">"${r[1]}"</span></div>`
-).join("");
+          <div class="pipe-node-wrap" data-stage="4">
+            <div class="pipe-node status-running" id="node-4">●</div>
+            <span class="pipe-label">K8s Rollout</span>
+            <span class="pipe-sub">3/3 Pods Ready</span>
+          </div>
 
-/* ---------- render: experience log ---------- */
-const job = PROFILE.currentJob;
-const jobsEl = document.getElementById("jobs");
-const logItem = (h) => `<li class="log-entry"><span class="log-tag">${h.tag}</span>${h.text}</li>`;
-jobsEl.innerHTML = `
-  <div class="job">
-    <div class="job-head">
+          <div class="pipe-segment active-fill" id="seg-4"></div>
+
+          <div class="pipe-node-wrap" data-stage="5">
+            <div class="pipe-node status-success" id="node-5">✓</div>
+            <span class="pipe-label">Prometheus</span>
+            <span class="pipe-sub">Latency: 18.4ms</span>
+          </div>
+        </div>
+
+        <!-- Live Terminal Logs Stream -->
+        <div class="pipe-terminal">
+          <div class="pipe-terminal-header">
+            <div class="terminal-dots">
+              <span class="terminal-dot r"></span>
+              <span class="terminal-dot y"></span>
+              <span class="terminal-dot g"></span>
+            </div>
+            <span>STDOUT: Jenkins Agent #4 / ArgoCD Controller</span>
+            <span id="pipeline-status-badge" style="color:var(--emerald)">STATUS: READY</span>
+          </div>
+          <div class="terminal-logs" id="pipeline-logs-stream">
+            <div class="log-line"><span class="log-time">[00:00.00]</span><span class="log-tag tag-info">[SYSTEM]</span><span>Pipeline controller initialized. Waiting for trigger event...</span></div>
+            <div class="log-line"><span class="log-time">[00:00.05]</span><span class="log-tag tag-success">[HEALTH]</span><span>Connected to ArgoCD server (argocd.telecom.internal:443)</span></div>
+            <div class="log-line"><span class="log-time">[00:00.12]</span><span class="log-tag tag-deploy">[GITOPS]</span><span>Kubernetes cluster context: AWS-EKS-PROD-AP-SOUTH-1</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         UNIQUE ACTION 2: CLUSTER OPS & CHAOS ENGINEERING SIMULATOR
+         ===================================================================== -->
+    <section class="ops-section" id="cluster-ops">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>PRODUCTION TELEMETRY</span>
+        </div>
+        <h2>Live Cluster Operations & Chaos Simulator</h2>
+        <p>DevOps is all about resilience under failure. Inject a pod eviction below and watch Kubernetes auto-healing restore nominal capacity in real time.</p>
+      </div>
+
+      <div class="ops-grid">
+        <!-- Telemetry Gauges -->
+        <div class="telemetry-card">
+          <div class="card-header-bar">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              <span>Cluster Telemetry</span>
+            </h3>
+            <span class="spec-val emerald mono" id="cluster-status-text">HEALTHY</span>
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric-box">
+              <div class="metric-label">CLUSTER UPTIME</div>
+              <div class="metric-val" id="tele-uptime">99.98%</div>
+              <div class="metric-sub">▲ 0.08% SLA target</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">ACTIVE WORKERS</div>
+              <div class="metric-val">4 Nodes</div>
+              <div class="metric-sub">AWS EKS m6i.xlarge</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">PODS RUNNING</div>
+              <div class="metric-val" id="tele-pods">48 / 48</div>
+              <div class="metric-sub" id="tele-pods-sub">100% capacity</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">P99 API LATENCY</div>
+              <div class="metric-val" id="tele-latency">18.4ms</div>
+              <div class="metric-sub">Prometheus SLO OK</div>
+            </div>
+          </div>
+
+          <div class="spec-rows" style="font-size:12px;">
+            <div class="spec-row">
+              <span class="spec-key">INGRESS ROUTING</span>
+              <span class="spec-val cyan">NGINX + AWS ALB</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">CERT MANAGER</span>
+              <span class="spec-val">Let's Encrypt TLS (Auto-Renew)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">PROMETHEUS SCRAPE</span>
+              <span class="spec-val emerald">15s Interval (0 dropped)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chaos Engineering Simulation Panel -->
+        <div class="chaos-panel">
+          <div>
+            <div class="card-header-bar">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Chaos Mesh Pod Resiliency Test</span>
+              </h3>
+              <span class="brand-badge mono" id="chaos-state-badge" style="color:var(--emerald); border-color:var(--emerald)">REPLICAS NOMINAL</span>
+            </div>
+
+            <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:14px;">
+              Click <strong>"Inject Pod Failure"</strong> to terminate a live pod. The ReplicaSet controller will reconcile drift, spawn a replacement container, and log the recovery event.
+            </p>
+
+            <div class="pods-container">
+              <div class="pods-grid" id="chaos-pods-grid">
+                <!-- Pods rendered dynamically via JS -->
+              </div>
+            </div>
+          </div>
+
+          <div class="chaos-actions">
+            <button class="btn-action btn-action-amber" id="inject-chaos-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Inject Pod Failure (SIGKILL)</span>
+            </button>
+            <button class="btn-action btn-action-secondary" id="scale-hpa-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span>Simulate Traffic Surge (HPA Scale)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>BACKGROUND</span>
+        </div>
+        <h2>Engineering Philosophy &amp; Production Track Record</h2>
+        <p>Three years orchestrating high-concurrency telecom middleware from bare-metal servers to Kubernetes clusters.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <p>
+            I specialize in bridging software development and rock-solid platform infrastructure. My day-to-day focus at <strong>Tech Mahindra</strong> revolves around production telecom middleware where downtime directly affects customer operations.
+          </p>
+          <p>
+            Whether authoring <strong>Terraform</strong> modules to spin up immutable cloud environments, fine-tuning <strong>Kubernetes HPA</strong> rules and ingress routing, or standardizing <strong>Jenkins &amp; ArgoCD GitOps</strong> release pipelines, I strive to eliminate manual toil and turn releases into routine, non-events.
+          </p>
+          <p>
+            Passionate about <strong>observability-driven reliability</strong>: setting up SLO/SLA dashboards in Prometheus and Grafana that immediately catch latency degradation before users ever notice an issue.
+          </p>
+        </div>
+
+        <div class="about-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div class="spec-header" style="margin-bottom:12px;">
+            <span>CORE EXPERTISE MATRIX</span>
+            <span class="mono cyan">VERIFIED</span>
+          </div>
+          <div class="spec-rows">
+            <div class="spec-row">
+              <span class="spec-key">CI/CD &amp; GITOPS</span>
+              <span class="spec-val">Jenkins, GitHub Actions, ArgoCD</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">CLOUD PLATFORMS</span>
+              <span class="spec-val">Azure (AKS, ACR, Key Vault) · AWS</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">INFRA AS CODE</span>
+              <span class="spec-val">Terraform, Ansible Playbooks</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">CONTAINERS</span>
+              <span class="spec-val">Docker Multi-stage, Kubernetes, NGINX</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">OBSERVABILITY</span>
+              <span class="spec-val">Prometheus, Grafana, ELK Stack</span>
+            </div>
+          </div>
+          <div style="margin-top:20px; display:flex; gap:10px;">
+            <button class="btn-action btn-action-primary" id="open-terminal-about-btn" style="width:100%; justify-content:center;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              <span>Explore Profile via Terminal</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          <span>CAREER LOG</span>
+        </div>
+        <h2>Production Experience &amp; Deliverables</h2>
+        <p>A detailed breakdown of systems provisioned, incidents resolved, and performance milestones reached.</p>
+      </div>
+
+      <div class="job-timeline">
+        <div class="job-card">
+          <div class="job-header">
+            <div class="job-title-group">
+              <h3>Associate Software Engineer</h3>
+              <div class="job-company">
+                <span>Tech Mahindra</span>
+                <span class="brand-badge">Telecom Middleware Platform</span>
+              </div>
+            </div>
+            <span class="job-duration" id="job-tenure-badge">Sep 2023 — Present · Calculating...</span>
+          </div>
+
+          <!-- Key Quantitative Metrics -->
+          <div class="job-metrics-row">
+            <div class="job-metric-stat">
+              <div class="job-metric-number">35%</div>
+              <div class="job-metric-desc">Incident Resolution Cut Across 50+ Servers</div>
+            </div>
+            <div class="job-metric-stat">
+              <div class="job-metric-number">99.9%</div>
+              <div class="job-metric-desc">Uptime via K8s Ingress &amp; HPA Autoscaling</div>
+            </div>
+            <div class="job-metric-stat">
+              <div class="job-metric-number">60%</div>
+              <div class="job-metric-desc">Env Setup Reduction with Ansible Automation</div>
+            </div>
+          </div>
+
+          <!-- Highlight Logs -->
+          <ul class="log-list" id="exp-highlights-list">
+            <li class="log-item">
+              <span class="log-badge-tag">RELIABILITY</span>
+              Cut incident resolution time by <strong>35%</strong> managing log analysis and system administration across 50+ production Linux servers.
+            </li>
+            <li class="log-item">
+              <span class="log-badge-tag">PLATFORM</span>
+              Implemented Kubernetes Deployments, Ingress and HPA autoscaling, lifting application uptime to <strong>99.9%</strong> while cutting infra cost by 20%.
+            </li>
+            <li class="log-item">
+              <span class="log-badge-tag">AUTOMATION</span>
+              Wrote Ansible playbooks that reduced manual environment setup time by <strong>60%</strong> across Dev, Test and Prod.
+            </li>
+            <li class="log-item">
+              <span class="log-badge-tag">DELIVERY</span>
+              Built Jenkins pipelines for Maven-based Spring Boot services, with <strong>SonarQube and Trivy scanning</strong> gating every release.
+            </li>
+            <li class="log-item">
+              <span class="log-badge-tag">INFRASTRUCTURE</span>
+              Provisioned Azure and AWS infrastructure — networking, Kubernetes, storage, security — with <strong>Terraform</strong> modules.
+            </li>
+          </ul>
+
+          <!-- Extended Logs (Accordion) -->
+          <ul class="log-list" id="exp-extended-list" style="display:none; margin-top:12px;">
+            <li class="log-item">
+              <span class="log-badge-tag">OBSERVABILITY</span>
+              Stood up Prometheus, Grafana and the ELK stack for metrics, logs and application health across environments.
+            </li>
+            <li class="log-item">
+              <span class="log-badge-tag">NETWORKING</span>
+              Configured NGINX, SSL/TLS, DNS and load balancers for secure, highly available API routing.
+            </li>
+            <li class="log-item">
+              <span class="log-badge-tag">CONTAINERS</span>
+              Containerized Spring Boot middleware with Docker, optimizing images and managing versions across Docker Hub and Azure Container Registry.
+            </li>
+            <li class="log-item">
+              <span class="log-badge-tag">SCRIPTING</span>
+              Automated deployment, validation and release workflows with Bash and PowerShell scripts.
+            </li>
+            <li class="log-item">
+              <span class="log-badge-tag">SOURCE-CONTROL</span>
+              Managed Git/GitHub branching, pull requests and release tagging across cross-functional development teams.
+            </li>
+          </ul>
+
+          <button class="log-accordion-toggle" id="toggle-exp-logs">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            <span id="toggle-exp-text">Show Full Log (+5 Deliverables)</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION WITH ARCHITECTURE INSPECTOR -->
+    <section id="projects">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <span>PORTFOLIO BUILDS</span>
+        </div>
+        <h2>Engineering Projects &amp; Architecture Specs</h2>
+        <p>Interactive infrastructure architectures built for real-world resilience, immutable deployments, and continuous observability.</p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1: EKS GitOps -->
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-title-row">
+              <h3 class="project-title">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+                <span>eks-platform-gitops</span>
+              </h3>
+              <span class="brand-badge mono">EKS + ArgoCD</span>
+            </div>
+            <div class="project-impact">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span>Cut deployment cycle time by 70%</span>
+            </div>
+            <p class="project-desc">
+              Production-grade AWS EKS platform provisioned via modular Terraform code, authenticated with AWS IAM Roles for Service Accounts (IRSA), and continuously synced through ArgoCD GitOps pipelines with Trivy security gating.
+            </p>
+            <div class="tech-pill-list">
+              <span class="tech-pill">Terraform</span>
+              <span class="tech-pill">AWS EKS</span>
+              <span class="tech-pill">ArgoCD</span>
+              <span class="tech-pill">GitHub Actions</span>
+              <span class="tech-pill">Trivy</span>
+              <span class="tech-pill">IRSA</span>
+            </div>
+          </div>
+
+          <div class="project-actions">
+            <button class="btn-action btn-action-secondary inspect-topo-btn" data-project="eks" style="font-size:12.5px; padding:7px 14px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span>Inspect Architecture</span>
+            </button>
+            <button class="btn-action btn-action-secondary copy-manifest-btn" data-project="eks" style="font-size:12.5px; padding:7px 14px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Copy Manifest</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 2: Observability & Chaos -->
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-title-row">
+              <h3 class="project-title">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>observability-incident-pipeline</span>
+              </h3>
+              <span class="brand-badge mono">Prometheus + Loki</span>
+            </div>
+            <div class="project-impact">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span>Cut MTTR (Mean Time to Resolution) by 40%</span>
+            </div>
+            <p class="project-desc">
+              End-to-end telemetry and automated incident-response stack with SLO/burn-rate alerting in Prometheus, centralized logging with Grafana Loki, and resilience verification using Chaos Mesh fault injection.
+            </p>
+            <div class="tech-pill-list">
+              <span class="tech-pill">Prometheus</span>
+              <span class="tech-pill">Grafana</span>
+              <span class="tech-pill">Loki</span>
+              <span class="tech-pill">Alertmanager</span>
+              <span class="tech-pill">Chaos Mesh</span>
+            </div>
+          </div>
+
+          <div class="project-actions">
+            <button class="btn-action btn-action-secondary inspect-topo-btn" data-project="obs" style="font-size:12.5px; padding:7px 14px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span>Inspect Architecture</span>
+            </button>
+            <button class="btn-action btn-action-secondary copy-manifest-btn" data-project="obs" style="font-size:12.5px; padding:7px 14px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Copy Alert Rule</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span>TECHNICAL TOOLCHAIN</span>
+        </div>
+        <h2>Technologies &amp; Infrastructure Stack</h2>
+        <p>Tools and frameworks deployed in production environments across cloud providers, orchestrators, and automated delivery chains.</p>
+      </div>
+
+      <div class="skills-grid" id="skills-container">
+        <!-- Rendered dynamically via JS for clean maintenance -->
+      </div>
+    </section>
+
+    <!-- CREDENTIALS & EDUCATION -->
+    <section id="credentials">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <span>QUALIFICATIONS</span>
+        </div>
+        <h2>Certifications &amp; Engineering Education</h2>
+      </div>
+
+      <div class="creds-grid">
+        <div class="cred-box">
+          <div class="cred-issuer">MICROSOFT CERTIFIED</div>
+          <div class="cred-name">Azure Fundamentals (AZ-900)</div>
+          <div class="cred-meta">Cloud Architecture &amp; Governance</div>
+        </div>
+        <div class="cred-box">
+          <div class="cred-issuer">ORACLE CERTIFIED</div>
+          <div class="cred-name">OCA — Java SE 8 Programmer</div>
+          <div class="cred-meta">Core OOP, Concurrency &amp; Memory</div>
+        </div>
+        <div class="cred-box">
+          <div class="cred-issuer">DEGREE</div>
+          <div class="cred-name">B.E., Computer Science &amp; Engineering</div>
+          <div class="cred-meta">M. Kumarasamy College of Eng. · 2019–2023</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>INITIATE CONTACT</span>
+        </div>
+        <h2>Let's Discuss Platform &amp; DevOps Engineering Roles</h2>
+        <p>Currently open to DevOps Engineer, Cloud Infrastructure, and SRE opportunities. Reach out via direct channels or send a pre-filled email.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-methods">
+          <a href="mailto:santhoshkumarsingaraj.3722@gmail.com" class="contact-method-card" id="contact-email-link">
+            <div class="contact-method-info">
+              <div class="contact-icon-wrapper">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="contact-type">DIRECT EMAIL</div>
+                <div class="contact-value">santhoshkumarsingaraj.3722@gmail.com</div>
+              </div>
+            </div>
+            <button class="icon-btn copy-single-btn" data-copy="santhoshkumarsingaraj.3722@gmail.com" title="Copy Email" aria-label="Copy Email">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </a>
+
+          <a href="tel:+919894580253" class="contact-method-card">
+            <div class="contact-method-info">
+              <div class="contact-icon-wrapper">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="contact-type">PHONE</div>
+                <div class="contact-value">+91-9894580253</div>
+              </div>
+            </div>
+            <button class="icon-btn copy-single-btn" data-copy="+919894580253" title="Copy Phone" aria-label="Copy Phone">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </a>
+
+          <a href="https://linkedin.com/in/santhosh-kumar-p-s" target="_blank" rel="noopener noreferrer" class="contact-method-card">
+            <div class="contact-method-info">
+              <div class="contact-icon-wrapper">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+              <div>
+                <div class="contact-type">LINKEDIN</div>
+                <div class="contact-value">linkedin.com/in/santhosh-kumar-p-s</div>
+              </div>
+            </div>
+            <span class="icon-btn" title="Open LinkedIn Profile">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </span>
+          </a>
+
+          <div class="contact-method-card" style="background:var(--bg-surface-elevated); border:1px dashed var(--border-subtle);">
+            <div>
+              <div class="contact-type">RECRUITER ATS ACTIONS</div>
+              <div class="contact-value" style="font-size:13px; color:var(--text-secondary); margin-top:2px;">Export formatted one-page resume or copy bulleted profile</div>
+            </div>
+            <button class="btn-action btn-action-primary" id="print-resume-btn" style="font-size:12px; padding:6px 12px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              <span>Export ATS View</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pre-filled Email Dispatch Form -->
+        <div class="contact-form-card">
+          <form id="portfolio-contact-form">
+            <div class="form-group">
+              <label for="contact-name">YOUR NAME / ORGANIZATION</label>
+              <input type="text" id="contact-name" class="form-control" placeholder="e.g. Alex Rivera, Senior Engineering Manager" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-email">YOUR WORK EMAIL</label>
+              <input type="email" id="contact-email" class="form-control" placeholder="alex@company.com" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-subject">ROLE / INQUIRY TOPIC</label>
+              <input type="text" id="contact-subject" class="form-control" placeholder="DevOps Engineer Role / Platform Engineering" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-message">MESSAGE</label>
+              <textarea id="contact-message" class="form-control" placeholder="Hi Santhosh, we came across your DevOps portfolio and would love to discuss an opportunity..." required></textarea>
+            </div>
+            <button type="submit" class="btn-action btn-action-primary" style="width:100%; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span>Dispatch Message via Mail Client</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="wrap">
+    <div class="footer-inner">
       <div>
-        <h3>${job.title}</h3>
-        <p class="job-company">${job.company}</p>
+        <span>© <span id="current-year">2026</span> Santhosh Kumar P S · DevOps &amp; Platform Engineer</span>
       </div>
-      <span class="job-period mono">${monthYear(job.startDate)} — present · ${tenureFrom(job.startDate)}</span>
+      <div style="display:flex; gap:16px;">
+        <span>SYS_STATUS: <strong style="color:var(--emerald)">NOMINAL</strong></span>
+        <span>UPTIME_ENGINE: <strong style="color:var(--cyan)">LIVE</strong></span>
+      </div>
     </div>
-    <ul class="log" id="log-main">
-      ${job.logHighlights.map(logItem).join("")}
-      <span class="log-hidden" id="log-extra">${job.logMore.map(logItem).join("")}</span>
-    </ul>
-    <div class="log-more">
-      <button class="log-more-btn" id="log-toggle" type="button">show full log (+${job.logMore.length})</button>
+  </footer>
+
+  <!-- =====================================================================
+       FLOATING SHELL LAUNCHER BUTTON
+       ===================================================================== -->
+  <button class="floating-shell-btn" id="floating-shell-toggle" title="Launch SK-Shell DevOps Terminal (` ~ )">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+    <span>>_ Cloud Shell</span>
+  </button>
+
+  <!-- =====================================================================
+       TERMINAL DRAWER (SK-Shell)
+       ===================================================================== -->
+  <div class="terminal-drawer-overlay" id="terminal-overlay">
+    <div class="terminal-window">
+      <div class="terminal-topbar">
+        <div class="terminal-title">
+          <div class="terminal-dots">
+            <span class="terminal-dot r" id="terminal-close-dot" style="cursor:pointer;" title="Close Shell"></span>
+            <span class="terminal-dot y"></span>
+            <span class="terminal-dot g"></span>
+          </div>
+          <span>santhosh@telecom-bastion:~ (sk-cloud-shell v3.2.0)</span>
+        </div>
+        <div class="terminal-actions-bar">
+          <span class="brand-badge mono">zsh 5.9</span>
+          <button class="icon-btn" id="terminal-close-btn" style="width:28px; height:28px;" title="Close Terminal">✕</button>
+        </div>
+      </div>
+
+      <div class="terminal-chips">
+        <span class="cmd-chip" data-cmd="kubectl get pods -A">kubectl get pods -A</span>
+        <span class="cmd-chip" data-cmd="terraform plan">terraform plan</span>
+        <span class="cmd-chip" data-cmd="argocd app list">argocd app list</span>
+        <span class="cmd-chip" data-cmd="cat profile.json">cat profile.json</span>
+        <span class="cmd-chip" data-cmd="uptime">uptime</span>
+        <span class="cmd-chip" data-cmd="chaos-test">chaos-test</span>
+        <span class="cmd-chip" data-cmd="help">help</span>
+        <span class="cmd-chip" data-cmd="clear">clear</span>
+      </div>
+
+      <div class="terminal-body" id="terminal-output">
+        <div style="color:var(--cyan); margin-bottom:8px;">
+          ╔════════════════════════════════════════════════════════════════════════╗<br>
+          ║  SK-SHELL — Santhosh Kumar P S Production Bastion Terminal Console     ║<br>
+          ║  Type 'help' for commands or click any chip above to execute.          ║<br>
+          ╚════════════════════════════════════════════════════════════════════════╝
+        </div>
+        <div>Type commands below or click suggestions. Press [ESC] or [✕] to exit.</div>
+      </div>
+
+      <div style="padding:10px 18px; background:#0B101C; border-top:1px solid var(--border-subtle);">
+        <div class="terminal-cli-line">
+          <span class="terminal-prompt">santhosh@k8s-bastion:~$</span>
+          <input type="text" class="terminal-input" id="terminal-cmd-input" placeholder="Type a command (e.g. kubectl get pods, terraform plan, help)..." autocomplete="off" spellcheck="false">
+        </div>
+      </div>
     </div>
   </div>
-`;
-document.getElementById("log-toggle").addEventListener("click", function(){
-  const extra = document.getElementById("log-extra");
-  const expanded = extra.style.display === "inline";
-  extra.style.display = expanded ? "none" : "inline";
-  this.textContent = expanded ? `show full log (+${job.logMore.length})` : "show less";
-});
 
-/* ---------- render: projects ---------- */
-document.getElementById("projects-grid").innerHTML = PROFILE.projects.map(p => `
-  <div class="repo">
-    <p class="repo-name">${svgRepo}${p.name}</p>
-    <p class="repo-desc">${p.desc}</p>
-    <p class="repo-impact">${p.impact}</p>
-    <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+  <!-- =====================================================================
+       HUD COMMAND PALETTE (Ctrl+K)
+       ===================================================================== -->
+  <div class="hud-overlay" id="hud-overlay">
+    <div class="hud-dialog">
+      <div class="hud-input-row">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="hud-input" id="hud-search" placeholder="Type a command or navigate (e.g. deploy, shell, chaos, contact)..." autocomplete="off">
+        <span class="kbd-shortcut">ESC to close</span>
+      </div>
+      <div class="hud-list" id="hud-results-list">
+        <!-- Filled dynamically -->
+      </div>
+    </div>
   </div>
-`).join("");
 
-/* ---------- render: skills ---------- */
-document.getElementById("skills-grid").innerHTML = PROFILE.skills.map(s => `
-  <div class="skill-panel">
-    <h4>${s.name}</h4>
-    <div class="skill-items">${s.items.map(i => `<span class="skill-item">${i}</span>`).join("")}</div>
+  <!-- =====================================================================
+       TOPOLOGY INSPECTOR MODAL
+       ===================================================================== -->
+  <div class="topology-overlay" id="topology-overlay">
+    <div class="topology-modal">
+      <div class="topology-header">
+        <div>
+          <h3 id="topology-title" style="font-size:18px; font-weight:700;">Infrastructure Architecture Topology</h3>
+          <p id="topology-subtitle" style="font-size:12.5px; color:var(--text-muted); font-family:var(--font-mono); margin-top:2px;">Terraform IaC &amp; Kubernetes Architecture</p>
+        </div>
+        <button class="icon-btn" id="topology-close-btn" style="width:32px; height:32px;">✕</button>
+      </div>
+
+      <div class="topology-body">
+        <div class="topology-diagram-container" id="topology-diagram-box">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-family:var(--font-mono); font-size:12px; color:var(--cyan);" id="topology-spec-title">Terraform Manifest / Kubernetes Resource Definition:</span>
+          <button class="btn-hud" id="topology-copy-code-btn">Copy Spec</button>
+        </div>
+        <div class="code-preview-block" id="topology-code-block">
+          <!-- Code snippet filled via JS -->
+        </div>
+      </div>
+    </div>
   </div>
-`).join("");
 
-/* ---------- render: credentials ---------- */
-const credCard = (c) => `<div class="cred-card"><p class="v">${c.title}</p><p class="sub">${c.sub}</p></div>`;
-document.getElementById("creds-grid").innerHTML =
-  PROFILE.certifications.map(credCard).join("") + PROFILE.education.map(credCard).join("");
+  <!-- =====================================================================
+       TOAST NOTIFICATIONS
+       ===================================================================== -->
+  <div class="toast-container" id="toast-container"></div>
 
-/* ---------- render: contact links ---------- */
-document.getElementById("contact-links").innerHTML = `
-  <a class="contact-link" href="mailto:${PROFILE.email}">${svgMail}<span><span class="cl-label">Email</span>${PROFILE.email}</span></a>
-  <a class="contact-link" href="tel:${PROFILE.phone}">${svgPhone}<span><span class="cl-label">Phone</span>${PROFILE.phone}</span></a>
-  <a class="contact-link" href="${PROFILE.linkedin}" target="_blank" rel="noopener">${svgLink}<span><span class="cl-label">LinkedIn</span>${PROFILE.linkedin.replace('https://','')}</span></a>
-`;
+  <!-- =====================================================================
+       APPLICATION SCRIPT (DATA & INTERACTIVITY)
+       ===================================================================== -->
+  <script>
+  (function(){
+    'use strict';
 
-/* ---------- contact form -> mailto ---------- */
-document.getElementById("contact-form").addEventListener("submit", function(e){
-  e.preventDefault();
-  const name = document.getElementById("cf-name").value.trim();
-  const email = document.getElementById("cf-email").value.trim();
-  const message = document.getElementById("cf-message").value.trim();
-  const subject = encodeURIComponent(`Portfolio contact from ${name}`);
-  const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-  window.location.href = `mailto:${PROFILE.email}?subject=${subject}&body=${body}`;
-});
+    /* -----------------------------------------------------------------------
+       PROFILE DATA STORE
+       ----------------------------------------------------------------------- */
+    const PROFILE = {
+      name: "Santhosh Kumar P S",
+      role: "DevOps Engineer",
+      email: "santhoshkumarsingaraj.3722@gmail.com",
+      phone: "+91-9894580253",
+      linkedin: "https://linkedin.com/in/santhosh-kumar-p-s",
+      location: "India",
+      startDate: "2023-09-01",
+      company: "Tech Mahindra",
+      title: "Associate Software Engineer",
+      skills: [
+        {
+          name: "Cloud & Platforms",
+          items: ["Azure (AKS, ACR, Key Vault)", "AWS (EC2, EKS, IAM, S3, CloudWatch)", "Linux (CentOS, RHEL, Ubuntu)"]
+        },
+        {
+          name: "CI/CD & GitOps",
+          items: ["Jenkins", "GitHub Actions", "ArgoCD", "Git / GitHub", "Maven", "SonarQube", "Trivy"]
+        },
+        {
+          name: "Containers & Orchestration",
+          items: ["Kubernetes", "Docker", "NGINX Ingress", "Helm", "HPA Autoscaler"]
+        },
+        {
+          name: "Infrastructure as Code",
+          items: ["Terraform", "Ansible Playbooks", "CloudFormation", "Bash Scripting", "PowerShell"]
+        },
+        {
+          name: "Observability & Security",
+          items: ["Prometheus", "Grafana", "ELK Stack", "Alertmanager", "Loki", "Chaos Mesh"]
+        },
+        {
+          name: "Languages & Core",
+          items: ["Java (Spring Boot)", "Python", "Bash", "YAML / JSON", "SQL"]
+        }
+      ]
+    };
 
-/* ---------- footer ---------- */
-document.getElementById("foot-year").textContent = new Date().getFullYear();
-document.getElementById("foot-rendered").textContent = "rendered " + new Date().toLocaleDateString("en-US", { year:"numeric", month:"short", day:"numeric" });
-</script>
+    /* -----------------------------------------------------------------------
+       AUDIO SYNTHESIZER (Native Web Audio API - Sci-Fi Haptic Feedback)
+       ----------------------------------------------------------------------- */
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx && (window.AudioContext || window.webkitAudioContext)) {
+        const AudioCtor = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioCtor();
+      }
+    }
+
+    function playTone(freq, type, duration, gainVal = 0.05) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type || 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // Audio policy or unsupported; fail silently
+      }
+    }
+
+    function playChime(type) {
+      if (!soundEnabled) return;
+      if (type === 'click') playTone(800, 'sine', 0.04, 0.03);
+      else if (type === 'success') {
+        playTone(523.25, 'sine', 0.12, 0.06);
+        setTimeout(() => playTone(659.25, 'sine', 0.15, 0.06), 80);
+        setTimeout(() => playTone(783.99, 'sine', 0.25, 0.06), 160);
+      } else if (type === 'alert') {
+        playTone(330, 'sawtooth', 0.15, 0.05);
+        setTimeout(() => playTone(280, 'sawtooth', 0.2, 0.05), 100);
+      } else if (type === 'terminal') {
+        playTone(1200, 'triangle', 0.02, 0.02);
+      }
+    }
+
+    // Toggle Sound Button
+    const soundBtn = document.getElementById('sound-btn');
+    soundBtn.addEventListener('click', function(){
+      soundEnabled = !soundEnabled;
+      this.title = `Sound Synthesizer: ${soundEnabled ? 'ON' : 'OFF'}`;
+      this.style.color = soundEnabled ? 'var(--cyan)' : 'var(--text-muted)';
+      showToast(soundEnabled ? '🔊 Audio feedback enabled' : '🔇 Audio feedback muted');
+      if (soundEnabled) playChime('click');
+    });
+
+    /* -----------------------------------------------------------------------
+       TOAST NOTIFICATION ENGINE
+       ----------------------------------------------------------------------- */
+    function showToast(message, icon = '✓') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span style="color:var(--cyan); font-weight:bold;">${icon}</span><span>${message}</span>`;
+      container.appendChild(toast);
+
+      // Trigger animation
+      requestAnimationFrame(() => toast.classList.add('show'));
+      playChime('click');
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 350);
+      }, 3400);
+    }
+
+    /* -----------------------------------------------------------------------
+       LIVE TENURE & RUNTIME TIME CALCULATION
+       ----------------------------------------------------------------------- */
+    function calculateTenure(dateStr) {
+      const start = new Date(dateStr);
+      const now = new Date();
+      let months = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+      if (now.getDate() < start.getDate()) months -= 1;
+      const years = Math.floor(months / 12);
+      const rem = months % 12;
+      const parts = [];
+      if (years) parts.push(years + (years === 1 ? " year" : " years"));
+      if (rem) parts.push(rem + (rem === 1 ? " mo" : " mos"));
+      return parts.join(", ");
+    }
+
+    const liveTenure = calculateTenure(PROFILE.startDate);
+    document.getElementById('spec-tenure').textContent = liveTenure;
+    document.getElementById('job-tenure-badge').textContent = `Sep 2023 — Present · ${liveTenure}`;
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Simulated Ping Jitter
+    setInterval(() => {
+      const pingEl = document.getElementById('live-ping');
+      const latencyEl = document.getElementById('tele-latency');
+      const ms = Math.floor(16 + Math.random() * 5);
+      if (pingEl) pingEl.textContent = `PING: ${ms}ms`;
+      if (latencyEl && !window.chaosActive) latencyEl.textContent = `${ms}.4ms`;
+    }, 4500);
+
+    /* -----------------------------------------------------------------------
+       RADIAL CURSOR SPOTLIGHT TRACKING
+       ----------------------------------------------------------------------- */
+    const spotlight = document.getElementById('spotlight');
+    window.addEventListener('pointermove', (e) => {
+      spotlight.style.left = e.clientX + 'px';
+      spotlight.style.top = e.clientY + 'px';
+    });
+
+    /* -----------------------------------------------------------------------
+       THEME SWITCHER (Ops Dark, Cyber Matrix, Lab Light)
+       ----------------------------------------------------------------------- */
+    const themes = ['ops-dark', 'cyber-matrix', 'lab-light'];
+    let currentThemeIdx = 0;
+    const themeBtn = document.getElementById('theme-btn');
+
+    themeBtn.addEventListener('click', () => {
+      currentThemeIdx = (currentThemeIdx + 1) % themes.length;
+      const newTheme = themes[currentThemeIdx];
+      document.documentElement.setAttribute('data-theme', newTheme);
+      showToast(`Switched theme: [${newTheme.toUpperCase()}]`);
+      playChime('click');
+    });
+
+    /* -----------------------------------------------------------------------
+       RENDER SKILLS
+       ----------------------------------------------------------------------- */
+    const skillsContainer = document.getElementById('skills-container');
+    skillsContainer.innerHTML = PROFILE.skills.map(group => `
+      <div class="skill-card">
+        <div class="skill-group-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <span>${group.name}</span>
+        </div>
+        <div class="skill-tags">
+          ${group.items.map(i => `
+            <span class="skill-tag"><span class="skill-bullet"></span>${i}</span>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+
+    /* -----------------------------------------------------------------------
+       EXPERIENCE ACCORDION
+       ----------------------------------------------------------------------- */
+    const toggleExpBtn = document.getElementById('toggle-exp-logs');
+    const expExtendedList = document.getElementById('exp-extended-list');
+    const toggleExpText = document.getElementById('toggle-exp-text');
+    let expExpanded = false;
+
+    toggleExpBtn.addEventListener('click', () => {
+      expExpanded = !expExpanded;
+      expExtendedList.style.display = expExpanded ? 'flex' : 'none';
+      toggleExpText.textContent = expExpanded ? 'Show Less' : 'Show Full Log (+5 Deliverables)';
+      playChime('click');
+    });
+
+    /* -----------------------------------------------------------------------
+       UNIQUE ACTION 1: CI/CD PIPELINE SIMULATOR & LOG STREAMER
+       ----------------------------------------------------------------------- */
+    const runPipelineBtn = document.getElementById('run-pipeline-btn');
+    const resetPipelineBtn = document.getElementById('reset-pipeline-btn');
+    const heroTriggerBtn = document.getElementById('hero-trigger-btn');
+    const scenarioSelect = document.getElementById('pipeline-scenario-select');
+    const logsStream = document.getElementById('pipeline-logs-stream');
+    const statusBadge = document.getElementById('pipeline-status-badge');
+
+    const STAGES = [
+      { name: "Code / Git", label: "Commit @7f4a8b" },
+      { name: "Build / Maven", label: "Artifacts Built" },
+      { name: "Trivy & Sonar", label: "Zero High/Crit" },
+      { name: "ArgoCD Sync", label: "GitOps Drift: 0" },
+      { name: "K8s Rollout", label: "3/3 Pods Ready" },
+      { name: "Prometheus", label: "Latency: 18.4ms" }
+    ];
+
+    const SCENARIOS = {
+      springboot: [
+        { stage: 0, tag: "[GIT]", text: "Checking out branch 'main' @ commit 7f4a8b2 (feat: telecom billing router)" },
+        { stage: 1, tag: "[MAVEN]", text: "mvn clean package -DskipTests=false -Djava.version=17 [48/48 tests passed]" },
+        { stage: 1, tag: "[DOCKER]", text: "Building multi-stage container image: cr.internal/telecom-billing:v2.4.0 (Layer cache: 88%)" },
+        { stage: 2, tag: "[TRIVY]", text: "Vulnerability scan: 0 CRITICAL, 0 HIGH, 2 LOW (Whitelisted). Image approved." },
+        { stage: 2, tag: "[SONAR]", text: "SonarQube Quality Gate passed: Code Smells 0, Security Rating A, Coverage 87.4%" },
+        { stage: 3, tag: "[GITOPS]", text: "ArgoCD triggered: Syncing Application 'telecom-prod' to revision 7f4a8b2" },
+        { stage: 4, tag: "[K8S]", text: "kubectl rollout restart deployment/telecom-billing -n prod-middleware" },
+        { stage: 4, tag: "[K8S]", text: "Replicas: 3/3 updated. Readiness probes: HTTP 200 OK across all pods." },
+        { stage: 5, tag: "[PROMETHEUS]", text: "SLO metric check: Error budget 100% intact, p99 latency = 17.8ms. Release Complete!" }
+      ],
+      canary: [
+        { stage: 0, tag: "[GIT]", text: "Triggering Canary rollout for image: v2.4.0-canary.1" },
+        { stage: 1, tag: "[DOCKER]", text: "Pulling target image from Azure Container Registry (ACR)... done" },
+        { stage: 2, tag: "[SECURITY]", text: "Image signature cosign verify: PASSED" },
+        { stage: 3, tag: "[ARGO-ROLLOUT]", text: "Routing 10% traffic to canary pods via Ingress NGINX annotations" },
+        { stage: 4, tag: "[METRICS]", text: "Canary analysis (duration: 30s): HTTP 5xx error rate = 0.00%, latency = 16.2ms" },
+        { stage: 4, tag: "[ARGO-ROLLOUT]", text: "Promoting rollout to 100% production traffic. Deprecating previous replica set." },
+        { stage: 5, tag: "[SUCCESS]", text: "Zero-downtime canary deployment completed successfully with 0 dropped sessions." }
+      ],
+      security: [
+        { stage: 0, tag: "[SECOPS]", text: "Initiating automated DevSecOps release gate..." },
+        { stage: 1, tag: "[DEPENDENCY]", text: "Scanning pom.xml for CVEs using OWASP Dependency-Check: clean" },
+        { stage: 2, tag: "[STATIC-ANALYSIS]", text: "SonarQube: Security Hotspots: 0, Vulnerabilities: 0. Gate PASSED." },
+        { stage: 2, tag: "[CONTAINER-SCAN]", text: "Trivy: Scanning base OS (Alpine 3.19) and application layers..." },
+        { stage: 3, tag: "[IMAGE-SIGN]", text: "Signing image with AWS KMS key: sha256:d894b9f1... verified." },
+        { stage: 4, tag: "[K8S-ADMISSION]", text: "OPA Gatekeeper admission controller: PodSecurityStandards policy met." },
+        { stage: 5, tag: "[VERIFIED]", text: "Security gating passed 100%. Infrastructure compliant with CIS benchmarks." }
+      ]
+    };
+
+    let pipelineRunning = false;
+    let currentStepTimer = null;
+
+    function resetPipelineUI() {
+      if (currentStepTimer) clearTimeout(currentStepTimer);
+      pipelineRunning = false;
+      statusBadge.textContent = "STATUS: READY";
+      statusBadge.style.color = "var(--emerald)";
+      
+      for (let i = 0; i < 6; i++) {
+        const node = document.getElementById(`node-${i}`);
+        if (node) {
+          node.className = "pipe-node";
+          node.textContent = i + 1;
+        }
+        const seg = document.getElementById(`seg-${i}`);
+        if (seg) seg.className = "pipe-segment";
+      }
+    }
+
+    function appendLog(timeStr, tag, text, type) {
+      const line = document.createElement('div');
+      line.className = 'log-line';
+      let tagClass = 'tag-info';
+      if (type === 'success') tagClass = 'tag-success';
+      if (type === 'warn') tagClass = 'tag-warn';
+      if (type === 'deploy') tagClass = 'tag-deploy';
+
+      line.innerHTML = `<span class="log-time">[${timeStr}]</span><span class="log-tag ${tagClass}">${tag}</span><span>${text}</span>`;
+      logsStream.appendChild(line);
+      logsStream.scrollTop = logsStream.scrollHeight;
+      playChime('terminal');
+    }
+
+    function runPipelineSimulation() {
+      if (pipelineRunning) return;
+      resetPipelineUI();
+      pipelineRunning = true;
+      statusBadge.textContent = "STATUS: EXECUTING";
+      statusBadge.style.color = "var(--amber)";
+      showToast("Triggered live CI/CD pipeline simulation ⚡");
+      playChime('click');
+
+      const scenarioKey = scenarioSelect.value;
+      const steps = SCENARIOS[scenarioKey] || SCENARIOS.springboot;
+      let stepIdx = 0;
+      const startTime = Date.now();
+
+      function nextStep() {
+        if (!pipelineRunning) return;
+        if (stepIdx >= steps.length) {
+          statusBadge.textContent = "STATUS: DEPLOYED (SUCCESS)";
+          statusBadge.style.color = "var(--emerald)";
+          pipelineRunning = false;
+          showToast("Deployment finished: All 6 stages nominal!", "🚀");
+          playChime('success');
+          return;
+        }
+
+        const step = steps[stepIdx];
+        const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+        const timeStr = `00:${elapsed.padStart(5, '0')}`;
+
+        // Update visual node
+        const activeStage = step.stage;
+        for (let i = 0; i <= activeStage; i++) {
+          const node = document.getElementById(`node-${i}`);
+          if (node) {
+            if (i < activeStage) {
+              node.className = "pipe-node status-success";
+              node.textContent = "✓";
+            } else {
+              node.className = "pipe-node status-running";
+              node.textContent = "●";
+            }
+          }
+          const seg = document.getElementById(`seg-${i}`);
+          if (seg) {
+            seg.className = i < activeStage ? "pipe-segment active-fill" : "pipe-segment in-progress";
+          }
+        }
+
+        let type = 'info';
+        if (step.tag.includes('GIT') || step.tag.includes('GITOPS')) type = 'deploy';
+        if (step.tag.includes('MAVEN') || step.tag.includes('SUCCESS') || step.tag.includes('VERIFIED')) type = 'success';
+        if (step.tag.includes('ALERT') || step.tag.includes('WARN')) type = 'warn';
+
+        appendLog(timeStr, step.tag, step.text, type);
+
+        stepIdx++;
+        currentStepTimer = setTimeout(nextStep, 1100);
+      }
+
+      nextStep();
+    }
+
+    runPipelineBtn.addEventListener('click', runPipelineSimulation);
+    resetPipelineBtn.addEventListener('click', () => {
+      resetPipelineUI();
+      logsStream.innerHTML = `<div class="log-line"><span class="log-time">[00:00.00]</span><span class="log-tag tag-info">[SYSTEM]</span><span>Pipeline reset to idle state.</span></div>`;
+      showToast("Pipeline state reset");
+    });
+    heroTriggerBtn.addEventListener('click', () => {
+      document.getElementById('simulator').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(runPipelineSimulation, 400);
+    });
+
+    /* -----------------------------------------------------------------------
+       UNIQUE ACTION 2: CLUSTER OPS & CHAOS SIMULATOR
+       ----------------------------------------------------------------------- */
+    const podsGrid = document.getElementById('chaos-pods-grid');
+    const injectChaosBtn = document.getElementById('inject-chaos-btn');
+    const scaleHpaBtn = document.getElementById('scale-hpa-btn');
+    const chaosStateBadge = document.getElementById('chaos-state-badge');
+    const telePods = document.getElementById('tele-pods');
+    const telePodsSub = document.getElementById('tele-pods-sub');
+    const teleLatency = document.getElementById('tele-latency');
+    const clusterStatusText = document.getElementById('cluster-status-text');
+
+    const INITIAL_PODS = [
+      { id: 1, name: "telecom-gw-8c4d", svc: "gateway", status: "running", uptime: "14d" },
+      { id: 2, name: "telecom-gw-9f21", svc: "gateway", status: "running", uptime: "14d" },
+      { id: 3, name: "auth-svc-7b6a", svc: "auth", status: "running", uptime: "21d" },
+      { id: 4, name: "auth-svc-3m10", svc: "auth", status: "running", uptime: "21d" },
+      { id: 5, name: "billing-rt-4x82", svc: "billing", status: "running", uptime: "7d" },
+      { id: 6, name: "billing-rt-5y99", svc: "billing", status: "running", uptime: "7d" },
+      { id: 7, name: "ingress-ngx-2a1", svc: "ingress", status: "running", uptime: "30d" },
+      { id: 8, name: "ingress-ngx-3b2", svc: "ingress", status: "running", uptime: "30d" }
+    ];
+
+    let currentPods = JSON.parse(JSON.stringify(INITIAL_PODS));
+    window.chaosActive = false;
+
+    function renderPods() {
+      podsGrid.innerHTML = currentPods.map(pod => `
+        <div class="pod-cell ${pod.status === 'crashed' ? 'crashed' : (pod.status === 'recovering' ? 'recovering' : '')}" id="pod-${pod.id}">
+          <div class="pod-cell-head">
+            <span class="pod-name">${pod.name}</span>
+            <span class="pod-status-dot"></span>
+          </div>
+          <div class="pod-uptime">svc: ${pod.svc} · ${pod.status.toUpperCase()}</div>
+        </div>
+      `).join('');
+    }
+    renderPods();
+
+    injectChaosBtn.addEventListener('click', () => {
+      if (window.chaosActive) return;
+      window.chaosActive = true;
+      playChime('alert');
+
+      // Pick target pod (e.g. auth-svc-3m10)
+      const targetPod = currentPods.find(p => p.id === 4) || currentPods[0];
+      targetPod.status = 'crashed';
+      renderPods();
+
+      chaosStateBadge.textContent = "ALARM: POD EVICTION (1/8)";
+      chaosStateBadge.style.color = "var(--rose)";
+      chaosStateBadge.style.borderColor = "var(--rose)";
+      telePods.textContent = "47 / 48";
+      telePodsSub.textContent = "Reconciliation in progress";
+      teleLatency.textContent = "38.2ms";
+      clusterStatusText.textContent = "DEGRADED (SELF-HEALING)";
+      clusterStatusText.style.color = "var(--rose)";
+
+      showToast(`💥 Chaos Injected: Pod ${targetPod.name} killed (OOMKilled / Evicted)`, '⚠️');
+
+      // Phase 2: Kubernetes ReplicaSet detects drift and triggers replacement
+      setTimeout(() => {
+        targetPod.status = 'recovering';
+        targetPod.name = `auth-svc-${Math.random().toString(36).substring(2, 6)}`;
+        renderPods();
+        chaosStateBadge.textContent = "K8S: ContainerCreating...";
+        chaosStateBadge.style.color = "var(--amber)";
+        chaosStateBadge.style.borderColor = "var(--amber)";
+        playChime('click');
+      }, 1200);
+
+      // Phase 3: Replacement pod passes readiness probe
+      setTimeout(() => {
+        targetPod.status = 'running';
+        targetPod.uptime = '0m (fresh)';
+        renderPods();
+
+        chaosStateBadge.textContent = "REPLICAS NOMINAL";
+        chaosStateBadge.style.color = "var(--emerald)";
+        chaosStateBadge.style.borderColor = "var(--emerald)";
+        telePods.textContent = "48 / 48";
+        telePodsSub.textContent = "100% capacity";
+        teleLatency.textContent = "18.4ms";
+        clusterStatusText.textContent = "HEALTHY";
+        clusterStatusText.style.color = "var(--emerald)";
+
+        showToast(`✅ Self-Healing Complete: ${targetPod.name} Running! 0 dropped packets.`, '☸️');
+        playChime('success');
+        window.chaosActive = false;
+      }, 2600);
+    });
+
+    scaleHpaBtn.addEventListener('click', () => {
+      showToast("Simulating traffic spike: HPA scaling replicas +50% 📈");
+      playChime('click');
+      telePods.textContent = "72 / 48 (Autoscaled)";
+      telePodsSub.textContent = "HPA Target: 65% CPU achieved";
+      setTimeout(() => {
+        showToast("Load stabilized: HPA scaling down to baseline replicas.");
+        telePods.textContent = "48 / 48";
+        telePodsSub.textContent = "100% capacity";
+      }, 3500);
+    });
+
+    /* -----------------------------------------------------------------------
+       UNIQUE ACTION 3: INTERACTIVE CLOUD SHELL (SK-Shell)
+       ----------------------------------------------------------------------- */
+    const terminalOverlay = document.getElementById('terminal-overlay');
+    const terminalCloseBtn = document.getElementById('terminal-close-btn');
+    const terminalCloseDot = document.getElementById('terminal-close-dot');
+    const floatingShellToggle = document.getElementById('floating-shell-toggle');
+    const heroShellBtn = document.getElementById('hero-shell-btn');
+    const aboutShellBtn = document.getElementById('open-terminal-about-btn');
+    const cmdInput = document.getElementById('terminal-cmd-input');
+    const terminalOutput = document.getElementById('terminal-output');
+
+    function openTerminal() {
+      terminalOverlay.classList.add('open');
+      cmdInput.focus();
+      playChime('click');
+    }
+    function closeTerminal() {
+      terminalOverlay.classList.remove('open');
+    }
+
+    floatingShellToggle.addEventListener('click', openTerminal);
+    heroShellBtn.addEventListener('click', openTerminal);
+    aboutShellBtn.addEventListener('click', openTerminal);
+    terminalCloseBtn.addEventListener('click', closeTerminal);
+    terminalCloseDot.addEventListener('click', closeTerminal);
+
+    terminalOverlay.addEventListener('click', (e) => {
+      if (e.target === terminalOverlay) closeTerminal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.key === '`' || e.key === '~') && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault();
+        terminalOverlay.classList.contains('open') ? closeTerminal() : openTerminal();
+      }
+      if (e.key === 'Escape') {
+        closeTerminal();
+        closeHud();
+        closeTopology();
+      }
+    });
+
+    // Execute Terminal Command Handler
+    function executeCommand(rawCmd) {
+      const cmd = rawCmd.trim();
+      if (!cmd) return;
+
+      const cmdLine = document.createElement('div');
+      cmdLine.innerHTML = `<span style="color:var(--cyan); font-weight:bold;">santhosh@k8s-bastion:~$</span> <span style="color:#FFF;">${cmd}</span>`;
+      terminalOutput.appendChild(cmdLine);
+
+      const resp = document.createElement('div');
+      resp.style.margin = '4px 0 12px';
+
+      const lower = cmd.toLowerCase();
+
+      if (lower === 'help') {
+        resp.innerHTML = `
+          <div style="color:var(--amber);">Available Commands:</div>
+          <div>  <span style="color:var(--cyan);">kubectl get pods -A</span>     - List active simulated cluster pods</div>
+          <div>  <span style="color:var(--cyan);">terraform plan</span>          - View live infrastructure state</div>
+          <div>  <span style="color:var(--cyan);">argocd app list</span>         - Show GitOps deployed microservices</div>
+          <div>  <span style="color:var(--cyan);">cat profile.json</span>        - Print resume & background spec</div>
+          <div>  <span style="color:var(--cyan);">uptime</span>                  - Show system uptime & SLA stats</div>
+          <div>  <span style="color:var(--cyan);">chaos-test</span>              - Run an automated cluster chaos drill</div>
+          <div>  <span style="color:var(--cyan);">contact</span>                 - View contact info & direct email</div>
+          <div>  <span style="color:var(--cyan);">theme &lt;name&gt;</span>             - Switch theme (dark, matrix, light)</div>
+          <div>  <span style="color:var(--cyan);">clear</span>                   - Clear terminal screen</div>
+        `;
+      } else if (lower.includes('kubectl get pods')) {
+        resp.innerHTML = `
+          <div style="color:var(--text-muted);">NAMESPACE          NAME                                READY   STATUS    RESTARTS   AGE</div>
+          <div>kube-system        aws-node-7b8x9                      1/1     <span style="color:var(--emerald);">Running</span>   0          42d</div>
+          <div>kube-system        coredns-55694-k91                   1/1     <span style="color:var(--emerald);">Running</span>   0          42d</div>
+          <div>argocd             argocd-server-794c-x1               1/1     <span style="color:var(--emerald);">Running</span>   0          18d</div>
+          <div>monitoring         prometheus-server-0                 1/1     <span style="color:var(--emerald);">Running</span>   0          25d</div>
+          <div>prod-telecom       telecom-gateway-69f-a2              1/1     <span style="color:var(--emerald);">Running</span>   0          14d</div>
+          <div>prod-telecom       auth-service-784c-p8                1/1     <span style="color:var(--emerald);">Running</span>   0          21d</div>
+          <div>prod-telecom       billing-processor-54-q2             1/1     <span style="color:var(--emerald);">Running</span>   0          7d</div>
+        `;
+      } else if (lower.includes('terraform')) {
+        resp.innerHTML = `
+          <div style="color:var(--cyan);">Terraform v1.7.5 on linux_amd64</div>
+          <div>Terraform used the selected providers to generate the following execution plan:</div>
+          <div style="color:var(--emerald);">+ module.eks_cluster.aws_eks_cluster.this</div>
+          <div style="color:var(--emerald);">+ module.vpc.aws_vpc.telecom_vpc (10.0.0.0/16)</div>
+          <div style="color:var(--emerald);">+ module.security_groups.aws_security_group.ingress_tls</div>
+          <div style="color:var(--amber);">Plan: 18 to add, 0 to change, 0 to destroy.</div>
+          <div style="color:var(--emerald);">─────────────────────────────────────────────────────────────</div>
+          <div>Infrastructure matches production configuration repository state.</div>
+        `;
+      } else if (lower.includes('argocd')) {
+        resp.innerHTML = `
+          <div style="color:var(--text-muted);">NAME             CLUSTER                         NAMESPACE     STATUS   HEALTH</div>
+          <div>telecom-ingress  https://eks.ap-south-1.aws...   kube-system   <span style="color:var(--emerald);">Synced</span>   <span style="color:var(--emerald);">Healthy</span></div>
+          <div>telecom-billing  https://eks.ap-south-1.aws...   prod-telecom  <span style="color:var(--emerald);">Synced</span>   <span style="color:var(--emerald);">Healthy</span></div>
+          <div>auth-service     https://eks.ap-south-1.aws...   prod-telecom  <span style="color:var(--emerald);">Synced</span>   <span style="color:var(--emerald);">Healthy</span></div>
+        `;
+      } else if (lower.includes('cat profile') || lower.includes('cat resume')) {
+        resp.innerHTML = `
+          <div style="color:var(--cyan);">{</div>
+          <div>  "name": "Santhosh Kumar P S",</div>
+          <div>  "role": "DevOps Engineer",</div>
+          <div>  "experience": "${liveTenure} in production telecom platforms",</div>
+          <div>  "company": "Tech Mahindra",</div>
+          <div>  "top_skills": ["AWS", "Azure", "Kubernetes", "Terraform", "Jenkins", "Ansible", "GitOps", "Prometheus"],</div>
+          <div>  "email": "${PROFILE.email}",</div>
+          <div>  "phone": "${PROFILE.phone}"</div>
+          <div style="color:var(--cyan);">}</div>
+        `;
+      } else if (lower === 'uptime') {
+        resp.innerHTML = `
+          <div>Cluster up 312 days, 14:28, 4 nodes, load average: 0.18, 0.22, 0.25</div>
+          <div>SLA Availability: <strong style="color:var(--emerald);">99.98%</strong> (Zero unbudgeted downtime in current quarter)</div>
+        `;
+      } else if (lower.includes('chaos')) {
+        resp.innerHTML = `<div>Triggering Chaos Drill from CLI...</div>`;
+        injectChaosBtn.click();
+      } else if (lower === 'contact') {
+        resp.innerHTML = `
+          <div>Email: <a href="mailto:${PROFILE.email}" style="color:var(--cyan);">${PROFILE.email}</a></div>
+          <div>Phone: <a href="tel:${PROFILE.phone}" style="color:var(--cyan);">${PROFILE.phone}</a></div>
+          <div>LinkedIn: <a href="${PROFILE.linkedin}" target="_blank" style="color:var(--cyan);">${PROFILE.linkedin}</a></div>
+        `;
+      } else if (lower === 'clear') {
+        terminalOutput.innerHTML = '';
+        return;
+      } else {
+        resp.innerHTML = `<span style="color:var(--rose);">zsh: command not found: ${cmd}. Type 'help' for available commands.</span>`;
+      }
+
+      terminalOutput.appendChild(resp);
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      playChime('terminal');
+    }
+
+    cmdInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = cmdInput.value;
+        cmdInput.value = '';
+        executeCommand(val);
+      }
+    });
+
+    // Handle Quick Command Chips
+    document.querySelectorAll('.cmd-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const cmd = chip.getAttribute('data-cmd');
+        executeCommand(cmd);
+      });
+    });
+
+    /* -----------------------------------------------------------------------
+       UNIQUE ACTION 4: HUD COMMAND PALETTE (Ctrl+K)
+       ----------------------------------------------------------------------- */
+    const hudOverlay = document.getElementById('hud-overlay');
+    const hudBtn = document.getElementById('hud-btn');
+    const hudSearch = document.getElementById('hud-search');
+    const hudList = document.getElementById('hud-results-list');
+
+    const HUD_ITEMS = [
+      { name: "Simulate Deploy Run (CI/CD)", badge: "SIMULATION", action: () => { runPipelineSimulation(); document.getElementById('simulator').scrollIntoView({behavior:'smooth'}); } },
+      { name: "Launch DevOps Cloud Shell (>_)", badge: "TERMINAL", action: openTerminal },
+      { name: "Inject Chaos Drill (Pod Eviction)", badge: "CHAOS", action: () => { injectChaosBtn.click(); document.getElementById('cluster-ops').scrollIntoView({behavior:'smooth'}); } },
+      { name: "Copy Recruiter Summary Sheet", badge: "CLIPBOARD", action: copyRecruiterSummary },
+      { name: "Export ATS Resume View (Print)", badge: "EXPORT", action: () => window.print() },
+      { name: "Jump to: Production Experience", badge: "SECTION", action: () => document.getElementById('experience').scrollIntoView({behavior:'smooth'}) },
+      { name: "Jump to: Projects & Architecture", badge: "SECTION", action: () => document.getElementById('projects').scrollIntoView({behavior:'smooth'}) },
+      { name: "Jump to: Technical Skills Matrix", badge: "SECTION", action: () => document.getElementById('skills').scrollIntoView({behavior:'smooth'}) },
+      { name: "Jump to: Contact & Direct Channels", badge: "SECTION", action: () => document.getElementById('contact').scrollIntoView({behavior:'smooth'}) },
+      { name: "Toggle Theme Mode (Dark/Light/Matrix)", badge: "THEME", action: () => themeBtn.click() }
+    ];
+
+    function renderHud(filter = '') {
+      const q = filter.toLowerCase();
+      const filtered = HUD_ITEMS.filter(i => i.name.toLowerCase().includes(q) || i.badge.toLowerCase().includes(q));
+      hudList.innerHTML = filtered.map((item, idx) => `
+        <div class="hud-item ${idx === 0 ? 'selected' : ''}" data-idx="${idx}">
+          <span>${item.name}</span>
+          <span class="hud-badge">${item.badge}</span>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.hud-item').forEach((el, idx) => {
+        el.addEventListener('click', () => {
+          filtered[idx].action();
+          closeHud();
+        });
+      });
+    }
+
+    function openHud() {
+      hudOverlay.classList.add('open');
+      hudSearch.value = '';
+      renderHud();
+      hudSearch.focus();
+      playChime('click');
+    }
+    function closeHud() {
+      hudOverlay.classList.remove('open');
+    }
+
+    hudBtn.addEventListener('click', openHud);
+    hudOverlay.addEventListener('click', (e) => {
+      if (e.target === hudOverlay) closeHud();
+    });
+
+    hudSearch.addEventListener('input', (e) => renderHud(e.target.value));
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        hudOverlay.classList.contains('open') ? closeHud() : openHud();
+      }
+    });
+
+    /* -----------------------------------------------------------------------
+       UNIQUE ACTION 5: RECRUITER 1-CLICK SUMMARY & ATS EXPORT
+       ----------------------------------------------------------------------- */
+    function copyRecruiterSummary() {
+      const summaryText = `
+Candidate: Santhosh Kumar P S
+Role: DevOps & Platform Engineer (${liveTenure} in production)
+Current: Associate Software Engineer @ Tech Mahindra (Sep 2023 - Present)
+Key Highlights:
+• Cut incident resolution time by 35% managing 50+ production Linux servers
+• Lifted uptime to 99.9% with Kubernetes Deployments, Ingress & HPA autoscaling
+• Reduced manual environment provisioning by 60% with Ansible & Terraform
+• Engineered Jenkins & ArgoCD GitOps pipelines with Trivy & SonarQube gating
+Contact: ${PROFILE.email} | ${PROFILE.phone}
+LinkedIn: ${PROFILE.linkedin}
+      `.trim();
+
+      navigator.clipboard.writeText(summaryText).then(() => {
+        showToast("Recruiter summary copied to clipboard! 📋", "✓");
+        playChime('success');
+      }).catch(() => {
+        showToast("Clipboard copy failed. Please copy manually.");
+      });
+    }
+
+    document.getElementById('recruiter-copy-btn').addEventListener('click', copyRecruiterSummary);
+    document.getElementById('print-resume-btn').addEventListener('click', () => {
+      window.print();
+    });
+
+    // Single copy buttons for email/phone
+    document.querySelectorAll('.copy-single-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const val = btn.getAttribute('data-copy');
+        navigator.clipboard.writeText(val).then(() => {
+          showToast(`Copied ${val} to clipboard!`);
+          playChime('success');
+        });
+      });
+    });
+
+    /* -----------------------------------------------------------------------
+       UNIQUE ACTION 6: ARCHITECTURE TOPOLOGY INSPECTOR MODAL
+       ----------------------------------------------------------------------- */
+    const topologyOverlay = document.getElementById('topology-overlay');
+    const topologyTitle = document.getElementById('topology-title');
+    const topologySubtitle = document.getElementById('topology-subtitle');
+    const topologyDiagramBox = document.getElementById('topology-diagram-box');
+    const topologyCodeBlock = document.getElementById('topology-code-block');
+    const topologyCloseBtn = document.getElementById('topology-close-btn');
+    const topologyCopyCodeBtn = document.getElementById('topology-copy-code-btn');
+
+    const TOPOLOGIES = {
+      eks: {
+        title: "EKS Platform GitOps Architecture",
+        subtitle: "Terraform Module + ArgoCD GitOps Controller + AWS VPC",
+        diagram: `
+          <svg viewBox="0 0 760 160" width="100%" height="160" style="font-family:var(--font-mono); font-size:11px;">
+            <!-- Nodes -->
+            <rect x="15" y="46" width="122" height="68" rx="8" fill="#161F33" stroke="#00F0FF" stroke-width="1.5"/>
+            <text x="76" y="72" fill="#F1F5F9" text-anchor="middle" font-size="12" font-weight="600">Git Repo</text>
+            <text x="76" y="92" fill="#94A3B8" text-anchor="middle" font-size="10.5">GitHub</text>
+
+            <line x1="137" y1="80" x2="167" y2="80" stroke="#00F0FF" stroke-width="2" stroke-dasharray="4"/>
+
+            <rect x="167" y="46" width="126" height="68" rx="8" fill="#161F33" stroke="#F59E0B" stroke-width="1.5"/>
+            <text x="230" y="72" fill="#F1F5F9" text-anchor="middle" font-size="12" font-weight="600">GH Actions</text>
+            <text x="230" y="92" fill="#94A3B8" text-anchor="middle" font-size="10.5">Build &amp; Trivy</text>
+
+            <line x1="293" y1="80" x2="323" y2="80" stroke="#F59E0B" stroke-width="2"/>
+
+            <rect x="323" y="46" width="122" height="68" rx="8" fill="#161F33" stroke="#6366F1" stroke-width="1.5"/>
+            <text x="384" y="72" fill="#F1F5F9" text-anchor="middle" font-size="12" font-weight="600">AWS ECR</text>
+            <text x="384" y="92" fill="#94A3B8" text-anchor="middle" font-size="10.5">Signed Images</text>
+
+            <line x1="445" y1="80" x2="475" y2="80" stroke="#6366F1" stroke-width="2"/>
+
+            <rect x="475" y="46" width="124" height="68" rx="8" fill="#161F33" stroke="#10B981" stroke-width="1.5"/>
+            <text x="537" y="72" fill="#F1F5F9" text-anchor="middle" font-size="12" font-weight="600">ArgoCD</text>
+            <text x="537" y="92" fill="#94A3B8" text-anchor="middle" font-size="10.5">GitOps Sync</text>
+
+            <line x1="599" y1="80" x2="629" y2="80" stroke="#10B981" stroke-width="2"/>
+
+            <rect x="629" y="46" width="122" height="68" rx="8" fill="#161F33" stroke="#00F0FF" stroke-width="1.5"/>
+            <text x="690" y="64" fill="#00F0FF" text-anchor="middle" font-size="11.5" font-weight="700">AWS EKS Cluster</text>
+            <text x="690" y="80" fill="#F1F5F9" text-anchor="middle" font-size="10.5">Ingress + HPA Pods</text>
+            <text x="690" y="96" fill="#10B981" text-anchor="middle" font-size="10">● 4 Nodes Healthy</text>
+          </svg>
+        `,
+        code: `
+# Terraform EKS Cluster & IRSA Authentication
+module "eks" {
+  source          = "terraform-aws-modules/eks/aws"
+  version         = "20.8.4"
+  cluster_name    = "telecom-production-eks"
+  cluster_version = "1.29"
+
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnets
+
+  eks_managed_node_groups = {
+    standard_workers = {
+      instance_types = ["m6i.xlarge"]
+      min_size       = 3
+      max_size       = 8
+      desired_size   = 4
+    }
+  }
+
+  enable_cluster_creator_admin_permissions = true
+}
+        `.trim()
+      },
+      obs: {
+        title: "Observability & Chaos Incident Pipeline",
+        subtitle: "Prometheus + Alertmanager + Grafana Loki + Chaos Mesh",
+        diagram: `
+          <svg viewBox="0 0 760 160" width="100%" height="160" style="font-family:var(--font-mono); font-size:11px;">
+            <rect x="15" y="46" width="122" height="68" rx="8" fill="#161F33" stroke="#00F0FF" stroke-width="1.5"/>
+            <text x="76" y="72" fill="#F1F5F9" text-anchor="middle" font-size="12" font-weight="600">Spring Pods</text>
+            <text x="76" y="92" fill="#94A3B8" text-anchor="middle" font-size="10.5">Micrometer /actuator</text>
+
+            <line x1="137" y1="80" x2="167" y2="80" stroke="#00F0FF" stroke-width="2"/>
+
+            <rect x="167" y="46" width="126" height="68" rx="8" fill="#161F33" stroke="#F59E0B" stroke-width="1.5"/>
+            <text x="230" y="72" fill="#F1F5F9" text-anchor="middle" font-size="12" font-weight="600">Prometheus</text>
+            <text x="230" y="92" fill="#94A3B8" text-anchor="middle" font-size="10.5">15s Scrape Interval</text>
+
+            <line x1="293" y1="80" x2="323" y2="80" stroke="#F59E0B" stroke-width="2"/>
+
+            <rect x="323" y="46" width="122" height="68" rx="8" fill="#161F33" stroke="#6366F1" stroke-width="1.5"/>
+            <text x="384" y="72" fill="#F1F5F9" text-anchor="middle" font-size="12" font-weight="600">Alertmanager</text>
+            <text x="384" y="92" fill="#94A3B8" text-anchor="middle" font-size="10.5">SLO Burn Rate</text>
+
+            <line x1="445" y1="80" x2="475" y2="80" stroke="#6366F1" stroke-width="2"/>
+
+            <rect x="475" y="46" width="124" height="68" rx="8" fill="#161F33" stroke="#10B981" stroke-width="1.5"/>
+            <text x="537" y="72" fill="#F1F5F9" text-anchor="middle" font-size="12" font-weight="600">Grafana Dash</text>
+            <text x="537" y="92" fill="#94A3B8" text-anchor="middle" font-size="10.5">SLI / P99 Latency</text>
+
+            <line x1="599" y1="80" x2="629" y2="80" stroke="#10B981" stroke-width="2"/>
+
+            <rect x="629" y="46" width="122" height="68" rx="8" fill="#161F33" stroke="#F43F5E" stroke-width="1.5"/>
+            <text x="690" y="64" fill="#F43F5E" text-anchor="middle" font-size="11.5" font-weight="700">Chaos Mesh</text>
+            <text x="690" y="80" fill="#F1F5F9" text-anchor="middle" font-size="10.5">Network Delay</text>
+            <text x="690" y="96" fill="#F43F5E" text-anchor="middle" font-size="10">Pod Fault Sim</text>
+          </svg>
+        `,
+        code: `
+# PrometheusRule: P99 Latency & Error Budget Depletion
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: telecom-slo-alerts
+  namespace: monitoring
+spec:
+  groups:
+  - name: telecom.rules
+    rules:
+    - alert: HighP99Latency
+      expr: histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le)) > 0.05
+      for: 2m
+      labels:
+        severity: critical
+      annotations:
+        summary: "P99 latency breached 50ms SLO threshold"
+        `.trim()
+      }
+    };
+
+    function openTopology(projKey) {
+      const data = TOPOLOGIES[projKey] || TOPOLOGIES.eks;
+      topologyTitle.textContent = data.title;
+      topologySubtitle.textContent = data.subtitle;
+      topologyDiagramBox.innerHTML = data.diagram;
+      topologyCodeBlock.textContent = data.code;
+      topologyOverlay.classList.add('open');
+      playChime('click');
+    }
+    function closeTopology() {
+      topologyOverlay.classList.remove('open');
+    }
+
+    document.querySelectorAll('.inspect-topo-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const proj = btn.getAttribute('data-project');
+        openTopology(proj);
+      });
+    });
+
+    document.querySelectorAll('.copy-manifest-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const proj = btn.getAttribute('data-project');
+        const data = TOPOLOGIES[proj] || TOPOLOGIES.eks;
+        navigator.clipboard.writeText(data.code).then(() => {
+          showToast(`Copied ${proj.toUpperCase()} manifest spec to clipboard! 📋`);
+          playChime('success');
+        });
+      });
+    });
+
+    topologyCopyCodeBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(topologyCodeBlock.textContent).then(() => {
+        showToast("Spec code copied to clipboard!");
+        playChime('success');
+      });
+    });
+
+    topologyCloseBtn.addEventListener('click', closeTopology);
+    topologyOverlay.addEventListener('click', (e) => {
+      if (e.target === topologyOverlay) closeTopology();
+    });
+
+    /* -----------------------------------------------------------------------
+       CONTACT FORM DISPATCH (Mail Client Handler)
+       ----------------------------------------------------------------------- */
+    const contactForm = document.getElementById('portfolio-contact-form');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const subject = document.getElementById('contact-subject').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+
+      const mailtoSubject = encodeURIComponent(`[DevOps Inquiry] ${subject} — from ${name}`);
+      const mailtoBody = encodeURIComponent(`Hi Santhosh,\n\n${message}\n\nSender: ${name}\nEmail: ${email}\nDate: ${new Date().toUTCString()}`);
+
+      window.location.href = `mailto:${PROFILE.email}?subject=${mailtoSubject}&body=${mailtoBody}`;
+      showToast("Opening default mail application... ✉️", "✓");
+      playChime('success');
+    });
+
+  })();
+  </script>
 </body>
 </html>
